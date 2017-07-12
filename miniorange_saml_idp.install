@@ -1,0 +1,40 @@
+<?php
+/**
+ * @file
+ * Installation file for miniOrange SAML Module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function miniorange_saml_idp_uninstall() {
+ 
+  variable_del('miniorange_saml_idp_status');
+  variable_del('miniorange_saml_idp_customer_admin_email');
+  variable_del('miniorange_saml_idp_customer_admin_phone');
+  variable_del('miniorange_saml_idp_customer_admin_token');
+  variable_del('miniorange_saml_idp_customer_id');
+  variable_del('miniorange_saml_idp_customer_api_key');
+  variable_del('miniorange_saml_idp_sml_lk');
+  variable_del('miniorange_saml_idp_sp_name');
+  variable_del('miniorange_saml_idp_sp_entity_id');
+  variable_del('miniorange_saml_idp_acs_url');
+  variable_del('miniorange_saml_idp_nameid_format');
+  variable_del('miniorange_saml_idp_nameid_attr_map');
+  variable_del('miniorange_saml_idp_relay_state');
+  variable_del('miniorange_saml_idp_certificate_signed');
+  variable_del('miniorange_saml_idp_certificate_encrypted');
+  variable_del('miniorange_saml_idp_response_signed');
+  variable_del('miniorange_saml_idp_assertion_signed');
+  variable_del('miniorange_saml_idp_encrypted_assertion');
+  variable_del('miniorange_saml_idp_attr1_name');
+  variable_del('miniorange_saml_idp_attr1_value');
+  variable_del('miniorange_saml_idp_attr2_name');
+  variable_del('miniorange_saml_idp_attr2_value');
+  variable_del('miniorange_saml_idp_attr3_name');
+  variable_del('miniorange_saml_idp_attr3_value');
+  variable_del('miniorange_saml_idp_attr4_name');
+  variable_del('miniorange_saml_idp_attr4_value');
+  
+  
+}
