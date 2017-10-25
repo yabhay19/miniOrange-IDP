@@ -1,7 +1,7 @@
-diff --git a/docroot/sites/all/modules/contrib/miniorange_saml_idp/css/jquery.ui.css b/docroot/sites/all/modules/contrib/miniorange_saml_idp/css/jquery.ui.css
+diff --git a/css/jquery.ui.css b/css/jquery.ui.css
 index a5312f6..b4874ba 100755
---- a/docroot/sites/all/modules/contrib/miniorange_saml_idp/css/jquery.ui.css
-+++ b/docroot/sites/all/modules/contrib/miniorange_saml_idp/css/jquery.ui.css
+--- a/css/jquery.ui.css
++++ b/css/jquery.ui.css
 @@ -274,7 +274,7 @@ button.ui-button::-moz-focus-inner {
  	width: 450px !important;
  	font-family: "Times New Roman", Times, serif !important;
