@@ -13,10 +13,11 @@
   $issuer = $base_url . '/?q=admin/config/people/miniorange_saml_idp/';
   $url = $base_url . '/';
   $login_url = $url . '?q=initiatelogon';
-  
+  $module_path = drupal_get_path('module', 'miniorange_saml_idp');
+
   $mo_admin_email = variable_get('miniorange_saml_idp_customer_admin_email',NULL);
   $sml_lk = variable_get('miniorange_saml_idp_sml_lk', NULL);
-  
+
   if(!isset($mo_admin_email)){
     $form['markup_saml_idp_regsitration_message'] = array(
 	  '#markup' => '<div style="display:block;margin-top:10px;color:red;background-color:rgba(251, 232, 0, 0.15);'
@@ -32,7 +33,7 @@
 	  . ' to enable Drupal IDP.</div>'
 	);
   }
-  
+
   $form['header'] = array(
     '#markup' => '<center><h3>You will need the following information to'
     . ' configure your Service Provider. Copy it and keep it handy</h3></center>',
@@ -62,7 +63,7 @@
 
   $options[3] = array(
     'attribute' => t('Certificate (Optional)'),
-    'value' => t('<a href="' . $base_url . '/sites/all/modules/miniorange_saml_idp/resources/idp-signing.crt">Download</a>'),
+    'value' => t('<a href="' . $base_url . '/' . $module_path . '/resources/idp-signing.crt">Download</a>'),
   );
 
   $options[4] = array(
@@ -93,7 +94,7 @@
 
   $form['markup_idp_sp_2'] = array(
     '#markup' => '<code style="background-color:gainsboro;"><b>'
-	. '<a target="_blank" href="' . $base_url . '/sites/all/modules/miniorange_saml_idp/includes/metadata/metadata.php">' . $base_url . '/sites/all/modules/miniorange_saml_idp/includes/metadata/metadata.php' . '</a></b></code>',
+	. '<a target="_blank" href="' . $base_url . '/' . $module_path . '/includes/metadata/metadata.php">' . $base_url . '/' . $module_path . '/includes/metadata/metadata.php' . '</a></b></code>',
   );
 
   return $form;
