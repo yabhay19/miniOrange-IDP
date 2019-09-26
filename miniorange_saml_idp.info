@@ -5,22 +5,16 @@ configure = admin/config/people/miniorange_saml_idp
 files[] = includes/Assertion.php
 files[] = includes/AuthnRequest.php
 files[] = includes/GenerateResponse.php
-files[] = includes/Logout.php
 files[] = includes/ReadResponse.php
 files[] = includes/Utilities.php
 files[] = includes/customer_setup.php
 files[] = includes/constants.php
 files[] = includes/miniorange_saml_idp_support.php
-files[] = includes/metadata/metadata.php
-scripts[] = js/payment.js
 scripts[] = js/testidpconfig.js
-stylesheets[all][] = css/bootstrap.min.css
-stylesheets[all][] = css/style_settings.css
-stylesheets[all][] = css/jquery.ui.css
 dependencies[] = libraries
-; Information added by Drupal.org packaging script on 2016-02-29
-version = "7.x-1.13"
+; Information added by Drupal.org packaging script on 2017-10-01
+version = "7.x-1.14"
 core = "7.x"
 project = "miniorange_saml_idp"
-datestamp = "1456747443"
+datestamp = "1538332200000"
 
