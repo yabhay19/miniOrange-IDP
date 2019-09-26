@@ -6,7 +6,6 @@
 
 /* Layout helpers
 ----------------------------------*/
-.page-admin-config-people-miniorange-saml-idp {
 .ui-helper-hidden {
 	display: none;
 }
@@ -715,18 +714,18 @@ button.ui-button::-moz-focus-inner {
 
 /* Overlays */
 .overlay_back {
-	position:fixed;
-	display:none;
+    position:fixed;
+    display:none; 
 
-	/* color with alpha channel */
-	background-color: rgba(0, 0, 0, 0.7); /* 0.7 = 70% opacity */
+    /* color with alpha channel */
+    background-color: rgba(0, 0, 0, 0.7); /* 0.7 = 70% opacity */
 
-	/* stretch to screen edges */
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	min-height:100%;
+    /* stretch to screen edges */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+	min-height:100%; 
 	width:100%;
 	z-index:111;
 }
@@ -741,5 +740,4 @@ button.ui-button::-moz-focus-inner {
 	opacity: .3;
 	filter: Alpha(Opacity=30); /* support: IE8 */
 	border-radius: 8px;
-}
 }

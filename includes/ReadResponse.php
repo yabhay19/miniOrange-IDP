@@ -1,102 +1,64 @@
 <?php
-/**
- * @package     Joomla.Plugins
- * @subpackage  system.joomlaidplogin
- *
- * @copyright   Copyright 2015 miniOrange. All Rights Reserved.
- * @license     http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
- */
 
-include 'Assertion.php';
 
-/**
- * Class for SAML2 Response messages.
- *
- */
+include "\101\x73\x73\145\x72\164\151\x6f\156\x2e\160\x68\160";
 class SAML2_Response
 {
-    /**
-     * The assertions in this response.
-     */
     private $assertions;
-	
-	/**
-     * The destination URL in this response.
-     */
-	private $destination;
-
-    /**
-     * Constructor for SAML 2 response messages.
-     *
-     * @param DOMElement|NULL $xml The input message.
-     */
-    public function __construct(DOMElement $xml = NULL)
+    private $destination;
+    public function __construct(DOMElement $Kz = NULL)
     {
-
         $this->assertions = array();
-
-        if ($xml === NULL) {
-            return;
+        if (!($Kz === NULL)) {
+            goto YA;
         }
-		
-		/* set the destination from saml response */
-		if ($xml->hasAttribute('Destination')) {
-            $this->destination = $xml->getAttribute('Destination');
+        return;
+        YA:
+        if (!$Kz->hasAttribute("\x44\x65\163\x74\151\x6e\x61\164\x69\x6f\156")) {
+            goto V0;
         }
-		
-		for ($node = $xml->firstChild; $node !== NULL; $node = $node->nextSibling) {
-			if ($node->namespaceURI !== 'urn:oasis:names:tc:SAML:2.0:assertion') {
-				continue;
-			}
-			
-			if ($node->localName === 'Assertion' || $node->localName === 'EncryptedAssertion') {
-				$this->assertions[] = new SAML2_Assertion($node);
-			}
-			
-		}
+        $this->destination = $Kz->getAttribute("\x44\x65\x73\164\x69\156\141\164\x69\157\156");
+        V0:
+        $Dw = $Kz->firstChild;
+        Xv:
+        if (!($Dw !== NULL)) {
+            goto EE;
+        }
+        if (!($Dw->namespaceURI !== "\165\x72\x6e\x3a\157\141\163\151\x73\72\156\x61\155\x65\163\x3a\x74\143\x3a\123\x41\x4d\114\72\x32\56\60\72\x61\x73\x73\x65\x72\164\151\157\156")) {
+            goto Wk;
+        }
+        goto Mt;
+        Wk:
+        if (!($Dw->localName === "\x41\163\163\x65\162\164\151\157\156" || $Dw->localName === "\x45\156\143\x72\171\x70\x74\145\144\101\x73\x73\145\162\164\151\x6f\x6e")) {
+            goto pu;
+        }
+        $this->assertions[] = new SAML2_Assertion($Dw);
+        pu:
+        Mt:
+        $Dw = $Dw->nextSibling;
+        goto Xv;
+        EE:
     }
-
-    /**
-     * Retrieve the assertions in this response.
-     *
-     * @return SAML2_Assertion[]|SAML2_EncryptedAssertion[]
-     */
     public function getAssertions()
-    {	
+    {
         return $this->assertions;
     }
-
-    /**
-     * Set the assertions that should be included in this response.
-     *
-     * @param SAML2_Assertion[]|SAML2_EncryptedAssertion[] The assertions.
-     */
-    public function setAssertions(array $assertions)
+    public function setAssertions(array $yD)
     {
-        $this->assertions = $assertions;
+        $this->assertions = $yD;
     }
-	
-	public function getDestination()
+    public function getDestination()
     {
         return $this->destination;
     }
-
-    /**
-     * Convert the response message to an XML element.
-     *
-     * @return DOMElement This response.
-     */
     public function toUnsignedXML()
     {
-        $root = parent::toUnsignedXML();
-
-        /** @var SAML2_Assertion|SAML2_EncryptedAssertion $assertion */
-        foreach ($this->assertions as $assertion) {
-
-            $assertion->toXML($root);
+        $Si = parent::toUnsignedXML();
+        foreach ($this->assertions as $KE) {
+            $KE->toXML($Si);
+            DS:
         }
-
-        return $root;
+        Or1:
+        return $Si;
     }
-
 }

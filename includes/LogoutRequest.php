@@ -1,342 +1,243 @@
 <?php
-/**
- * @package     Joomla.Plugins
- * @subpackage  system.joomlaidplogin
- *
- * @copyright   Copyright 2015 miniOrange. All Rights Reserved.
- * @license     http://miniorange.com/usecases/miniOrange_User_Agreement.pdf
- */
 
-include_once 'Utilities.php';
+
+include_once "\x55\x74\151\154\151\x74\x69\x65\x73\56\x70\150\x70";
 class SAML2_LogoutRequest
 {
-	private $tagName;
-	private $id;
-	private $issuer;
-	private $destination;
-	private $issueInstant;
-	private $certificates;
-	private $validators;
+    private $tagName;
+    private $id;
+    private $issuer;
+    private $destination;
+    private $issueInstant;
+    private $certificates;
+    private $validators;
     private $notOnOrAfter;
     private $encryptedNameId;
     private $nameId;
     private $sessionIndexes;
-
-    public function __construct(DOMElement $xml = NULL)
+    public function __construct(DOMElement $Kz = NULL)
     {
-        $this->tagName = 'LogoutRequest';
-
+        $this->tagName = "\114\157\147\157\x75\164\122\x65\161\x75\145\x73\164";
         $this->id = Utilities::generateID();
         $this->issueInstant = time();
         $this->certificates = array();
         $this->validators = array();
-
-        if ($xml === NULL) {
-            return;
+        if (!($Kz === NULL)) {
+            goto cU;
         }
-
-        if (!$xml->hasAttribute('ID')) {
-            throw new Exception('Missing ID attribute on SAML message.');
+        return;
+        cU:
+        if ($Kz->hasAttribute("\x49\x44")) {
+            goto lq;
         }
-        $this->id = $xml->getAttribute('ID');
-
-        if ($xml->getAttribute('Version') !== '2.0') {
-            /* Currently a very strict check. */
-            throw new Exception('Unsupported version: ' . $xml->getAttribute('Version'));
+        throw new Exception("\x4d\151\x73\x73\151\x6e\x67\40\111\104\40\x61\x74\x74\x72\151\142\x75\x74\145\x20\x6f\x6e\40\123\101\115\x4c\40\155\145\x73\x73\141\x67\145\x2e");
+        lq:
+        $this->id = $Kz->getAttribute("\x49\x44");
+        if (!($Kz->getAttribute("\x56\x65\x72\x73\151\157\x6e") !== "\x32\56\x30")) {
+            goto Qf;
         }
-
-        $this->issueInstant = Utilities::xsDateTimeToTimestamp($xml->getAttribute('IssueInstant'));
-
-        if ($xml->hasAttribute('Destination')) {
-            $this->destination = $xml->getAttribute('Destination');
+        throw new Exception("\125\156\163\165\160\x70\157\x72\164\x65\144\x20\x76\145\162\163\x69\157\156\72\x20" . $Kz->getAttribute("\x56\145\162\163\x69\x6f\156"));
+        Qf:
+        $this->issueInstant = Utilities::xsDateTimeToTimestamp($Kz->getAttribute("\x49\x73\163\165\145\x49\156\163\x74\141\x6e\164"));
+        if (!$Kz->hasAttribute("\104\145\x73\x74\x69\156\x61\164\151\x6f\x6e")) {
+            goto wG;
         }
-
-        $issuer = Utilities::xpQuery($xml, './saml_assertion:Issuer');
-        if (!empty($issuer)) {
-            $this->issuer = trim($issuer[0]->textContent);
+        $this->destination = $Kz->getAttribute("\x44\145\163\x74\151\x6e\x61\x74\151\157\156");
+        wG:
+        $Qn = Utilities::xpQuery($Kz, "\56\57\163\141\155\x6c\137\x61\x73\x73\x65\162\164\151\157\156\72\x49\x73\163\x75\x65\162");
+        if (empty($Qn)) {
+            goto Od;
         }
-
-        /* Validate the signature element of the message. */
+        $this->issuer = trim($Qn[0]->textContent);
+        Od:
         try {
-            $sig = Utilities::validateElement($xml);
-
-            if ($sig !== FALSE) {
-                $this->certificates = $sig['Certificates'];
-                $this->validators[] = array(
-                    'Function' => array('Utilities', 'validateSignature'),
-                    'Data' => $sig,
-                    );
+            $B9 = Utilities::validateElement($Kz);
+            if (!($B9 !== FALSE)) {
+                goto GD;
             }
-
-        } catch (Exception $e) {
-            /* Ignore signature validation errors. */
+            $this->certificates = $B9["\x43\x65\162\x74\x69\146\151\143\x61\x74\145\x73"];
+            $this->validators[] = array("\106\165\156\143\164\x69\x6f\x6e" => array("\x55\164\151\x6c\151\164\151\x65\163", "\166\x61\x6c\151\144\141\164\145\123\x69\147\156\x61\x74\165\x72\145"), "\x44\x61\x74\x61" => $B9);
+            GD:
+        } catch (Exception $e9) {
         }
-
         $this->sessionIndexes = array();
-
-        if ($xml->hasAttribute('NotOnOrAfter')) {
-            $this->notOnOrAfter = Utilities::xsDateTimeToTimestamp($xml->getAttribute('NotOnOrAfter'));
+        if (!$Kz->hasAttribute("\116\x6f\164\117\x6e\x4f\x72\101\146\x74\145\x72")) {
+            goto GX;
         }
-
-        $nameId = Utilities::xpQuery($xml, './saml_assertion:NameID | ./saml_assertion:EncryptedID/xenc:EncryptedData');
-        if (empty($nameId)) {
-            throw new Exception('Missing <saml:NameID> or <saml:EncryptedID> in <samlp:LogoutRequest>.');
-        } elseif (count($nameId) > 1) {
-            throw new Exception('More than one <saml:NameID> or <saml:EncryptedD> in <samlp:LogoutRequest>.');
+        $this->notOnOrAfter = Utilities::xsDateTimeToTimestamp($Kz->getAttribute("\116\x6f\164\x4f\156\x4f\162\x41\x66\164\145\162"));
+        GX:
+        $fW = Utilities::xpQuery($Kz, "\x2e\57\163\141\x6d\x6c\137\x61\x73\163\x65\162\x74\151\x6f\156\72\116\x61\x6d\145\111\104\x20\x7c\40\56\57\163\141\x6d\154\x5f\x61\163\x73\145\162\x74\151\157\x6e\72\105\156\143\162\171\160\x74\x65\144\x49\104\57\170\x65\x6e\x63\x3a\105\156\143\x72\171\x70\x74\x65\144\x44\141\164\141");
+        if (empty($fW)) {
+            goto HS;
         }
-        $nameId = $nameId[0];
-        if ($nameId->localName === 'EncryptedData') {
-            /* The NameID element is encrypted. */
-            $this->encryptedNameId = $nameId;
-        } else {
-            $this->nameId = Utilities::parseNameId($nameId);
+        if (count($fW) > 1) {
+            goto Fn;
         }
-
-        $sessionIndexes = Utilities::xpQuery($xml, './saml_protocol:SessionIndex');
-        foreach ($sessionIndexes as $sessionIndex) {
-            $this->sessionIndexes[] = trim($sessionIndex->textContent);
+        goto fK;
+        HS:
+        throw new Exception("\x4d\151\163\x73\151\156\x67\x20\74\x73\141\x6d\x6c\72\116\141\155\x65\111\104\76\40\157\x72\40\x3c\163\141\155\154\x3a\x45\x6e\143\162\171\160\x74\145\x64\x49\104\76\x20\151\156\x20\74\x73\141\155\154\x70\x3a\x4c\x6f\x67\157\165\x74\122\145\x71\165\145\x73\164\x3e\x2e");
+        goto fK;
+        Fn:
+        throw new Exception("\115\157\162\145\40\x74\x68\141\x6e\x20\157\x6e\x65\x20\74\163\141\x6d\x6c\x3a\x4e\x61\x6d\x65\111\104\76\40\157\162\40\x3c\x73\x61\x6d\x6c\72\105\x6e\143\x72\171\160\x74\x65\x64\104\76\40\151\156\40\x3c\163\141\155\x6c\160\x3a\x4c\157\147\157\x75\164\122\145\161\x75\145\x73\164\x3e\x2e");
+        fK:
+        $fW = $fW[0];
+        if ($fW->localName === "\105\x6e\x63\x72\171\x70\x74\x65\144\x44\141\164\x61") {
+            goto q3;
         }
+        $this->nameId = Utilities::parseNameId($fW);
+        goto ZS;
+        q3:
+        $this->encryptedNameId = $fW;
+        ZS:
+        $U4 = Utilities::xpQuery($Kz, "\56\57\163\x61\x6d\154\x5f\160\162\x6f\x74\x6f\143\x6f\x6c\x3a\123\x65\x73\x73\x69\157\156\111\156\144\145\170");
+        foreach ($U4 as $mp) {
+            $this->sessionIndexes[] = trim($mp->textContent);
+            Dy:
+        }
+        Xl:
     }
-
-    /**
-     * Retrieve the expiration time of this request.
-     *
-     * @return int|NULL The expiration time of this request.
-     */
     public function getNotOnOrAfter()
     {
         return $this->notOnOrAfter;
     }
-
-    /**
-     * Set the expiration time of this request.
-     *
-     * @param int|NULL $notOnOrAfter The expiration time of this request.
-     */
-    public function setNotOnOrAfter($notOnOrAfter)
+    public function setNotOnOrAfter($be)
     {
-        //assert('is_int($notOnOrAfter) || is_null($notOnOrAfter)');
-
-        $this->notOnOrAfter = $notOnOrAfter;
+        $this->notOnOrAfter = $be;
     }
-
-    /**
-     * Check whether the NameId is encrypted.
-     *
-     * @return TRUE if the NameId is encrypted, FALSE if not.
-     */
     public function isNameIdEncrypted()
     {
-        if ($this->encryptedNameId !== NULL) {
-            return TRUE;
+        if (!($this->encryptedNameId !== NULL)) {
+            goto Ej;
         }
-
+        return TRUE;
+        Ej:
         return FALSE;
     }
-
-    /**
-     * Encrypt the NameID in the LogoutRequest.
-     *
-     * @param XMLSecurityKey $key The encryption key.
-     */
-    public function encryptNameId(XMLSecurityKey $key)
+    public function encryptNameId(XMLSecurityKey $p1)
     {
-        /* First create a XML representation of the NameID. */
-        $doc = new DOMDocument();
-        $root = $doc->createElement('root');
-        $doc->appendChild($root);
-        SAML2_Utils::addNameId($root, $this->nameId);
-        $nameId = $root->firstChild;
-
-        SAML2_Utils::getContainer()->debugMessage($nameId, 'encrypt');
-
-        /* Encrypt the NameID. */
-        $enc = new XMLSecEnc();
-        $enc->setNode($nameId);
-        $enc->type = XMLSecEnc::Element;
-
-        $symmetricKey = new XMLSecurityKey(XMLSecurityKey::AES128_CBC);
-        $symmetricKey->generateSessionKey();
-        $enc->encryptKey($key, $symmetricKey);
-
-        $this->encryptedNameId = $enc->encryptNode($symmetricKey);
+        $sd = new DOMDocument();
+        $Si = $sd->createElement("\x72\x6f\157\164");
+        $sd->appendChild($Si);
+        SAML2_Utils::addNameId($Si, $this->nameId);
+        $fW = $Si->firstChild;
+        SAML2_Utils::getContainer()->debugMessage($fW, "\145\156\143\x72\171\160\x74");
+        $Cx = new XMLSecEnc();
+        $Cx->setNode($fW);
+        $Cx->type = XMLSecEnc::Element;
+        $RX = new XMLSecurityKey(XMLSecurityKey::AES128_CBC);
+        $RX->generateSessionKey();
+        $Cx->encryptKey($p1, $RX);
+        $this->encryptedNameId = $Cx->encryptNode($RX);
         $this->nameId = NULL;
     }
-
-    /**
-     * Decrypt the NameID in the LogoutRequest.
-     *
-     * @param XMLSecurityKey $key       The decryption key.
-     * @param array          $blacklist Blacklisted decryption algorithms.
-     */
-    public function decryptNameId(XMLSecurityKey $key, array $blacklist = array())
+    public function decryptNameId(XMLSecurityKey $p1, array $y7 = array())
     {
-        if ($this->encryptedNameId === NULL) {
-            /* No NameID to decrypt. */
-
-            return;
+        if (!($this->encryptedNameId === NULL)) {
+            goto KC;
         }
-
-        $nameId = SAML2_Utils::decryptElement($this->encryptedNameId, $key, $blacklist);
-        SAML2_Utils::getContainer()->debugMessage($nameId, 'decrypt');
-        $this->nameId = SAML2_Utils::parseNameId($nameId);
-
+        return;
+        KC:
+        $fW = SAML2_Utils::decryptElement($this->encryptedNameId, $p1, $y7);
+        SAML2_Utils::getContainer()->debugMessage($fW, "\144\x65\x63\162\171\x70\164");
+        $this->nameId = SAML2_Utils::parseNameId($fW);
         $this->encryptedNameId = NULL;
     }
-
-    /**
-     * Retrieve the name identifier of the session that should be terminated.
-     *
-     * @return array The name identifier of the session that should be terminated.
-     * @throws Exception
-     */
     public function getNameId()
     {
-        if ($this->encryptedNameId !== NULL) {
-            throw new Exception('Attempted to retrieve encrypted NameID without decrypting it first.');
+        if (!($this->encryptedNameId !== NULL)) {
+            goto VJ;
         }
-
+        throw new Exception("\101\x74\x74\145\155\x70\x74\x65\x64\x20\164\157\40\162\145\164\x72\x69\145\166\145\x20\x65\x6e\143\x72\x79\x70\164\x65\x64\40\116\x61\155\145\111\104\40\x77\x69\164\x68\x6f\x75\164\40\x64\x65\x63\x72\x79\x70\x74\x69\x6e\x67\40\151\164\x20\x66\x69\162\163\164\56");
+        VJ:
         return $this->nameId;
     }
-
-    /**
-     * Set the name identifier of the session that should be terminated.
-     *
-     * The name identifier must be in the format accepted by SAML2_message::buildNameId().
-     *
-     * @see SAML2_message::buildNameId()
-     * @param array $nameId The name identifier of the session that should be terminated.
-     */
-    public function setNameId($nameId)
+    public function setNameId($fW)
     {
-        //assert('is_array($nameId)');
-
-        $this->nameId = $nameId;
+        $this->nameId = $fW;
     }
-
-    /**
-     * Retrieve the SessionIndexes of the sessions that should be terminated.
-     *
-     * @return array The SessionIndexes, or an empty array if all sessions should be terminated.
-     */
     public function getSessionIndexes()
     {
         return $this->sessionIndexes;
     }
-
-    /**
-     * Set the SessionIndexes of the sessions that should be terminated.
-     *
-     * @param array $sessionIndexes The SessionIndexes, or an empty array if all sessions should be terminated.
-     */
-    public function setSessionIndexes(array $sessionIndexes)
+    public function setSessionIndexes(array $U4)
     {
-        $this->sessionIndexes = $sessionIndexes;
+        $this->sessionIndexes = $U4;
     }
-
-    /**
-     * Retrieve the sesion index of the session that should be terminated.
-     *
-     * @return string|NULL The sesion index of the session that should be terminated.
-     */
     public function getSessionIndex()
     {
-        if (empty($this->sessionIndexes)) {
-            return NULL;
+        if (!empty($this->sessionIndexes)) {
+            goto tw;
         }
-
+        return NULL;
+        tw:
         return $this->sessionIndexes[0];
     }
-
-    /**
-     * Set the sesion index of the session that should be terminated.
-     *
-     * @param string|NULL $sessionIndex The sesion index of the session that should be terminated.
-     */
-    public function setSessionIndex($sessionIndex)
+    public function setSessionIndex($mp)
     {
-        //assert('is_string($sessionIndex) || is_null($sessionIndex)');
-
-        if (is_null($sessionIndex)) {
-            $this->sessionIndexes = array();
-        } else {
-            $this->sessionIndexes = array($sessionIndex);
+        if (is_null($mp)) {
+            goto mY;
         }
+        $this->sessionIndexes = array($mp);
+        goto jx;
+        mY:
+        $this->sessionIndexes = array();
+        jx:
     }
-
-    /**
-     * Convert this logout request message to an XML element.
-     *
-     * @return DOMElement This logout request.
-     */
     public function toUnsignedXML()
     {
-        $root = parent::toUnsignedXML();
-
-        if ($this->notOnOrAfter !== NULL) {
-            $root->setAttribute('NotOnOrAfter', gmdate('Y-m-d\TH:i:s\Z', $this->notOnOrAfter));
+        $Si = parent::toUnsignedXML();
+        if (!($this->notOnOrAfter !== NULL)) {
+            goto qw;
         }
-
+        $Si->setAttribute("\x4e\157\x74\x4f\x6e\x4f\x72\x41\x66\x74\x65\162", gmdate("\131\x2d\155\x2d\144\134\x54\x48\72\151\x3a\x73\x5c\132", $this->notOnOrAfter));
+        qw:
         if ($this->encryptedNameId === NULL) {
-            SAML2_Utils::addNameId($root, $this->nameId);
-        } else {
-            $eid = $root->ownerDocument->createElementNS(SAML2_Const::NS_SAML, 'saml:' . 'EncryptedID');
-            $root->appendChild($eid);
-            $eid->appendChild($root->ownerDocument->importNode($this->encryptedNameId, TRUE));
+            goto ML;
         }
-
-        foreach ($this->sessionIndexes as $sessionIndex) {
-            SAML2_Utils::addString($root, SAML2_Const::NS_SAMLP, 'SessionIndex', $sessionIndex);
+        $mm = $Si->ownerDocument->createElementNS(SAML2_Const::NS_SAML, "\163\x61\155\x6c\x3a" . "\x45\x6e\x63\x72\x79\160\164\145\144\111\104");
+        $Si->appendChild($mm);
+        $mm->appendChild($Si->ownerDocument->importNode($this->encryptedNameId, TRUE));
+        goto xE;
+        ML:
+        SAML2_Utils::addNameId($Si, $this->nameId);
+        xE:
+        foreach ($this->sessionIndexes as $mp) {
+            SAML2_Utils::addString($Si, SAML2_Const::NS_SAMLP, "\x53\145\x73\x73\x69\x6f\x6e\111\156\x64\x65\170", $mp);
+            MN:
         }
-
-        return $root;
+        NL:
+        return $Si;
     }
-
     public function getId()
     {
         return $this->id;
     }
-    
-    public function setId($id)
+    public function setId($Iw)
     {
-        //assert('is_string($id)');
-
-        $this->id = $id;
+        $this->id = $Iw;
     }
-    
     public function getIssueInstant()
     {
         return $this->issueInstant;
     }
-
-    public function setIssueInstant($issueInstant)
+    public function setIssueInstant($PG)
     {
-        //assert('is_int($issueInstant)');
-
-        $this->issueInstant = $issueInstant;
+        $this->issueInstant = $PG;
     }
-
     public function getDestination()
     {
         return $this->destination;
     }
-
-    public function setDestination($destination)
+    public function setDestination($U0)
     {
-        //assert('is_string($destination) || is_null($destination)');
-
-        $this->destination = $destination;
+        $this->destination = $U0;
     }
-
     public function getIssuer()
     {
         return $this->issuer;
     }
-
-    public function setIssuer($issuer)
+    public function setIssuer($Qn)
     {
-        //assert('is_string($issuer) || is_null($issuer)');
-
-        $this->issuer = $issuer;
+        $this->issuer = $Qn;
     }
 }

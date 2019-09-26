@@ -1,63 +1,31 @@
 <?php
-/**
- * @file
- * Contains support form for miniOrange SAML IDP Module.
- */
 
- /**
- * Showing Support form info.
- */
- function miniorange_saml_idp_support($form, &$form_state) {
 
-  $form['markup_1'] = array(
-    '#markup' => '<h3>Support</h3><div>Need any help? Just send us a query so we can help you.<br /><br /></div>',
-  );
-
-  $form['miniorange_saml_idp_email_address'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Email Address'),
-    '#attributes' => array('placeholder' => 'Enter your email'),
-	'#required' => TRUE,
-  );
-
-  $form['miniorange_saml_idp_phone_number'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Phone number'),
-    '#attributes' => array('placeholder' => 'Enter your phone number'),
-  );
-
-  $form['miniorange_saml_idp_support_query'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Query'),
-    '#cols' => '10',
-    '#rows' => '5',
-    '#attributes' => array('placeholder' => 'Write your query here'),
-    '#required' => TRUE,
-  );
-
-  $form['miniorange_saml_idp_support_submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Submit Query'),
-    '#submit' => array('miniorange_saml_idp_send_query'),
-  );
-
-  return $form;
-
- }
-
- /**
-  * Send support query.
-  */
- function miniorange_saml_idp_send_query($form, &$form_state) {
-    $email = $form['miniorange_saml_idp_email_address']['#value'];
-    $phone = $form['miniorange_saml_idp_phone_number']['#value'];
-    $query = $form['miniorange_saml_idp_support_query']['#value'];
-    $support = new MiniOrangeSamlIdpSupport($email, $phone, $query);
-    $support_response = $support->sendSupportQuery();
-    if($support_response) {
-      drupal_set_message(t('Your support query has been sent successfully. We will get back to you soon.'));
+function miniorange_saml_idp_support($form, &$form_state)
+{
+    $form["\150\x65\x61\x64\145\162\137\164\x6f\160\137\x73\164\171\x6c\145\x5f\x31"] = array("\43\x6d\x61\162\153\x75\160" => "\74\x64\x69\166\40\143\154\141\x73\x73\x3d\x22\x6d\157\137\163\141\x6d\x6c\x5f\164\x61\142\x6c\145\x5f\x6c\x61\171\x6f\x75\x74\137\61\42\76");
+    $form["\150\145\x61\144\145\x72\x5f\164\x6f\160\x5f\x73\164\171\x6c\145\x5f\62"] = array("\x23\x6d\141\162\x6b\x75\160" => "\x3c\x64\x69\x76\40\143\154\x61\163\x73\x3d\x22\155\157\x5f\163\141\155\x6c\137\164\141\142\x6c\x65\137\x6c\141\x79\157\x75\x74\40\155\x6f\x5f\x73\x61\x6d\154\137\143\157\x6e\x74\141\151\x6e\x65\162\x22\76");
+    $form["\x6d\x61\x72\153\x75\x70\137\61"] = array("\x23\155\x61\162\x6b\165\x70" => "\74\x68\63\x3e\123\165\160\x70\x6f\162\x74\74\x2f\150\x33\x3e\x3c\x68\x72\76\74\x64\151\x76\x3e\74\142\162\x2f\x3e\116\x65\145\x64\x20\141\x6e\x79\40\x68\x65\x6c\160\x3f\40\112\165\x73\x74\x20\163\145\156\x64\40\x75\x73\x20\141\40\x71\165\145\162\x79\x20\x73\157\40\x77\x65\40\143\x61\x6e\x20\x68\x65\x6c\160\x20\171\x6f\x75\56\74\x62\x72\x20\57\x3e\74\x62\x72\x20\x2f\76\74\x2f\144\151\166\76");
+    $form["\155\151\156\151\x6f\162\x61\156\x67\x65\x5f\x73\141\x6d\154\x5f\x69\144\x70\x5f\145\155\141\151\x6c\x5f\141\x64\144\162\145\x73\163"] = array("\43\x74\171\160\145" => "\164\x65\170\164\x66\x69\145\x6c\x64", "\x23\x74\x69\164\154\x65" => t("\105\155\x61\x69\154\40\101\x64\144\162\x65\x73\163"), "\x23\141\x74\164\x72\151\142\x75\164\145\163" => array("\x70\154\x61\143\145\x68\x6f\x6c\x64\x65\162" => "\105\156\x74\145\162\x20\x79\157\165\x72\40\145\x6d\141\x69\154"), "\43\162\145\161\x75\151\162\x65\144" => TRUE);
+    $form["\x6d\x69\x6e\x69\x6f\162\x61\156\147\145\x5f\163\141\x6d\154\x5f\x69\144\x70\x5f\x70\150\157\156\x65\x5f\x6e\x75\x6d\x62\x65\x72"] = array("\43\x74\171\x70\145" => "\164\x65\170\164\146\151\x65\154\144", "\x23\164\x69\164\x6c\x65" => t("\120\150\157\156\x65\x20\x6e\x75\155\142\145\x72"), "\43\141\x74\x74\x72\x69\142\x75\x74\145\x73" => array("\160\x6c\141\143\145\x68\x6f\154\x64\x65\x72" => "\x45\x6e\x74\145\x72\x20\x79\157\x75\x72\40\x70\150\157\x6e\145\40\x6e\x75\x6d\142\145\x72"));
+    $form["\155\151\x6e\151\x6f\162\141\156\147\x65\x5f\163\141\x6d\x6c\137\x69\x64\160\137\x73\165\160\x70\157\x72\x74\x5f\x71\x75\x65\x72\171"] = array("\x23\x74\171\x70\x65" => "\164\145\x78\164\x61\x72\145\141", "\43\164\151\x74\x6c\x65" => t("\121\165\x65\x72\x79"), "\43\x63\157\154\x73" => "\x31\60", "\x23\x72\x6f\x77\x73" => "\65", "\43\x61\x74\x74\x72\151\x62\x75\164\145\x73" => array("\x70\154\x61\x63\145\150\157\x6c\144\x65\162" => "\127\162\151\164\x65\40\171\x6f\x75\x72\x20\x71\165\x65\162\171\40\x68\145\162\145"), "\43\162\x65\x71\165\x69\162\145\x64" => TRUE);
+    $form["\x6d\x69\x6e\x69\157\162\x61\156\147\x65\137\163\141\x6d\154\x5f\151\x64\160\x5f\163\165\x70\x70\x6f\x72\164\137\x73\165\142\x6d\151\164"] = array("\43\x74\171\x70\x65" => "\163\x75\142\155\x69\x74", "\43\166\141\x6c\165\145" => t("\x53\x75\x62\155\x69\x74\x20\x51\x75\145\162\x79"), "\43\x73\165\142\x6d\151\x74" => array("\155\151\x6e\x69\x6f\162\x61\x6e\x67\145\x5f\x73\x61\155\154\x5f\x69\144\x70\x5f\163\x65\156\144\x5f\161\x75\145\x72\171"));
+    $form["\155\151\156\151\x6f\162\141\156\147\x65\x5f\x73\x61\155\x6c\x5f\x73\165\160\x70\x6f\x72\164\137\x6e\x6f\x74\145"] = array("\43\x6d\141\x72\153\x75\160" => "\x3c\x64\151\166\76\x49\146\40\x79\x6f\165\40\167\141\x6e\164\x20\143\165\163\x74\157\x6d\40\146\145\x61\x74\165\162\x65\x73\x20\x69\x6e\x20\x74\x68\145\40\x6d\157\144\165\154\145\x2c\x20\x6a\x75\163\164\x20\x64\162\x6f\x70\40\x61\x6e\x20\145\155\141\151\154\x20\164\157\x20\74\x61\40\150\x72\x65\146\75\42\155\x61\151\154\164\157\x3a\151\x6e\x66\x6f\100\x78\145\x63\x75\x72\x69\x66\171\x2e\143\157\155\42\76\151\x6e\x66\x6f\100\170\145\143\x75\162\x69\146\x79\x2e\143\x6f\x6d\74\x2f\141\76\x3c\57\x64\151\x76\x3e\x3c\x2f\144\x69\x76\x3e\x3c\x2f\144\151\166\76");
+    return $form;
+}
+function miniorange_saml_idp_send_query($form, &$form_state)
+{
+    $uN = $form["\x6d\151\156\151\x6f\162\x61\x6e\x67\x65\x5f\163\x61\155\154\x5f\151\144\x70\137\145\x6d\x61\x69\x6c\137\141\x64\x64\162\x65\x73\163"]["\43\x76\141\x6c\165\x65"];
+    $n8 = $form["\155\151\x6e\151\x6f\162\x61\x6e\x67\145\137\x73\x61\x6d\154\137\151\x64\160\137\160\x68\x6f\156\x65\x5f\x6e\x75\155\142\145\162"]["\43\166\x61\154\x75\x65"];
+    $N3 = $form["\x6d\151\x6e\x69\157\x72\141\156\147\x65\x5f\163\141\155\154\137\x69\144\x70\x5f\x73\x75\160\160\157\162\x74\x5f\161\x75\x65\x72\171"]["\x23\x76\x61\x6c\165\145"];
+    $yU = new MiniOrangeSamlIdpSupport($uN, $n8, $N3);
+    $O1 = $yU->sendSupportQuery();
+    if ($O1) {
+        goto g5;
     }
-    else {
-    	drupal_set_message(t('Error sending support query. Please try again.'), 'error');
-    } 
- }
+    drupal_set_message(t("\x45\x72\x72\x6f\162\40\x73\x65\156\x64\x69\x6e\x67\x20\x73\x75\160\160\x6f\x72\164\x20\161\165\145\x72\171\56\40\120\154\145\141\x73\145\x20\164\x72\171\x20\x61\x67\x61\151\156\56"), "\x65\x72\x72\x6f\x72");
+    goto pO;
+    g5:
+    drupal_set_message(t("\131\x6f\165\162\x20\x73\x75\160\x70\157\162\164\40\161\165\x65\162\x79\40\150\x61\x73\40\142\x65\x65\156\x20\163\x65\x6e\164\x20\x73\165\x63\x63\x65\163\163\x66\165\154\x6c\171\x2e\x20\127\145\40\167\x69\x6c\x6c\40\x67\145\x74\x20\142\x61\x63\x6b\40\x74\157\x20\171\x6f\165\x20\163\157\157\x6e\56"));
+    pO:
+}

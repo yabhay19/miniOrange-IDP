@@ -458,4 +458,22 @@ input[type=submit].btn-block,input[type=reset].btn-block,input[type=button].btn-
 	border-top-right-radius: 0
 }
 
+/*CSS for FAQs button*/
+
+.btn-primary-faq{
+	float: left;
+	color: #48a0dc;
+	border: 2px solid #48a0dc;
+	border-color: #2e6da4;
+	background-color: white;
+	text-decoration: none;
+}
+
+.btn_faq_buttons{
+	padding:5px 10px;
+	float:right;
+	border-color: #0073aa #006799 #006799;
+	color: #fff;
+	text-decoration: none;
+}
 	
