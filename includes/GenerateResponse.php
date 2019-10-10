@@ -19,559 +19,559 @@ class GenerateResponse
     private $attributes;
     private $inResponseTo;
     private $subject;
-    function __construct($uN, $Xe, $lH, $Qn, $O9, $Mi = null, $KK = null, $Sy = null, $N6 = null, $WQ = null, $Fc = array(), $Xs = '', $w8 = null)
+    function __construct($kY, $HZ, $xD, $SB, $kw, $AZ = null, $dF = null, $h_ = null, $K5 = null, $F_ = null, $m0 = array(), $LB = '', $aC = null)
     {
-        $this->xml = new DOMDocument("\x31\56\60", "\165\x74\146\55\70");
-        $this->acsUrl = $lH;
-        $this->issuer = $Qn;
-        $this->audience = $O9;
-        $this->email = $uN;
-        $this->username = $Xe;
-        $this->name_id_attr = $Mi;
-        $this->name_id_attr_format = $Xs;
-        $this->mo_idp_response_signed = $KK;
-        $this->mo_idp_assertion_signed = $Sy;
-        $this->mo_idp_encrypted_assertion = $N6;
-        $this->mo_idp_cert_encrypt = $WQ;
-        $this->attributes = $Fc;
-        $this->inResponseTo = $w8;
+        $this->xml = new DOMDocument("\x31\x2e\60", "\x75\164\x66\55\70");
+        $this->acsUrl = $xD;
+        $this->issuer = $SB;
+        $this->audience = $kw;
+        $this->email = $kY;
+        $this->username = $HZ;
+        $this->name_id_attr = $AZ;
+        $this->name_id_attr_format = $LB;
+        $this->mo_idp_response_signed = $dF;
+        $this->mo_idp_assertion_signed = $h_;
+        $this->mo_idp_encrypted_assertion = $K5;
+        $this->mo_idp_cert_encrypt = $F_;
+        $this->attributes = $m0;
+        $this->inResponseTo = $aC;
     }
     function createSamlResponse()
     {
         $this->licenseCheck();
-        $Y1 = $this->getResponseParams();
-        $Jx = $this->createResponseElement($Y1);
-        $this->xml->appendChild($Jx);
-        $Qn = $this->buildIssuer();
-        $Jx->appendChild($Qn);
-        $YW = $this->buildStatus();
-        $Jx->appendChild($YW);
-        $vU = $this->buildStatusCode();
-        $YW->appendChild($vU);
-        $KE = $this->buildAssertion($Y1);
-        $Jx->appendChild($KE);
-        $NM = '';
-        $NM = variable_get("\155\x69\x6e\x69\x6f\x72\141\x6e\147\145\x5f\163\x61\x6d\154\137\x69\144\x70\x5f\x70\x72\151\x76\141\x74\145\x5f\x63\x65\162\164\x69\146\x69\x63\141\x74\145");
+        $S8 = $this->getResponseParams();
+        $fP = $this->createResponseElement($S8);
+        $this->xml->appendChild($fP);
+        $SB = $this->buildIssuer();
+        $fP->appendChild($SB);
+        $QP = $this->buildStatus();
+        $fP->appendChild($QP);
+        $Ml = $this->buildStatusCode();
+        $QP->appendChild($Ml);
+        $NV = $this->buildAssertion($S8);
+        $fP->appendChild($NV);
+        $K7 = '';
+        $K7 = variable_get("\x6d\x69\156\151\157\162\x61\156\x67\145\137\x73\x61\x6d\154\x5f\151\144\x70\x5f\x70\x72\151\x76\x61\164\145\x5f\143\145\162\164\151\146\x69\x63\141\164\145");
         if (!$this->mo_idp_assertion_signed) {
-            goto Ja;
+            goto yG;
         }
-        if (!empty($NM)) {
-            goto s7;
+        if (!empty($K7)) {
+            goto Cc;
         }
-        $BW = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "\x72\145\x73\x6f\165\x72\143\145\x73" . DIRECTORY_SEPARATOR . "\x69\x64\160\55\163\x69\147\156\151\x6e\x67\x2e\x6b\x65\171";
-        goto TD;
-        s7:
-        $BW = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "\x72\145\163\157\165\162\143\145\163" . DIRECTORY_SEPARATOR . "\x43\x75\x73\x74\x6f\155\137\x50\x72\x69\166\x61\x74\145\137\103\145\162\164\x69\x66\151\x63\x61\164\145\56\x6b\x65\x79";
-        TD:
-        $this->signNode($BW, $KE, $this->subject, $Y1);
-        Ja:
+        $nP = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "\x72\x65\x73\x6f\165\x72\x63\x65\x73" . DIRECTORY_SEPARATOR . "\151\144\160\x2d\163\x69\147\x6e\151\x6e\147\x2e\153\x65\x79";
+        goto YE;
+        Cc:
+        $nP = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "\162\x65\x73\x6f\x75\x72\x63\145\x73" . DIRECTORY_SEPARATOR . "\x43\x75\163\164\157\155\137\120\162\151\166\141\164\x65\x5f\103\x65\162\164\151\x66\151\143\141\164\145\x2e\153\x65\x79";
+        YE:
+        $this->signNode($nP, $NV, $this->subject, $S8);
+        yG:
         if (!$this->mo_idp_encrypted_assertion) {
-            goto dk;
+            goto Lp;
         }
-        $B8 = $this->buildEncryptedAssertion($KE);
-        $Jx->removeChild($KE);
-        $Jx->appendChild($B8);
-        dk:
+        $K0 = $this->buildEncryptedAssertion($NV);
+        $fP->removeChild($NV);
+        $fP->appendChild($K0);
+        Lp:
         if (!$this->mo_idp_response_signed) {
-            goto Ag;
+            goto yY;
         }
-        if (!empty($NM)) {
-            goto nO;
+        if (!empty($K7)) {
+            goto xL;
         }
-        $BW = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "\x72\x65\x73\157\x75\x72\x63\x65\163" . DIRECTORY_SEPARATOR . "\x69\x64\160\x2d\163\x69\x67\x6e\x69\x6e\147\56\x6b\145\171";
-        goto zA;
-        nO:
-        $BW = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "\x72\145\163\x6f\x75\x72\143\x65\x73" . DIRECTORY_SEPARATOR . "\x43\x75\x73\164\157\x6d\137\x50\162\151\x76\x61\164\145\137\x43\145\162\164\151\146\x69\x63\x61\164\145\x2e\x6b\x65\x79";
-        zA:
-        $this->signNode($BW, $Jx, $YW, $Y1);
-        Ag:
-        $SO = $this->xml->saveXML();
-        return $SO;
+        $nP = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "\162\145\x73\157\165\162\143\x65\163" . DIRECTORY_SEPARATOR . "\151\x64\160\x2d\x73\151\147\x6e\151\156\147\x2e\153\145\x79";
+        goto HB;
+        xL:
+        $nP = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "\162\x65\163\x6f\x75\162\x63\145\x73" . DIRECTORY_SEPARATOR . "\103\x75\x73\164\157\x6d\x5f\120\162\151\x76\x61\164\145\137\x43\x65\x72\x74\x69\x66\x69\143\141\x74\145\x2e\153\x65\171";
+        HB:
+        $this->signNode($nP, $fP, $QP, $S8);
+        yY:
+        $qN = $this->xml->saveXML();
+        return $qN;
     }
     public function getEncryptionKey()
     {
         return $this->encryptionKey;
     }
-    public function setEncryptionKey(XMLSecurityKey $z8 = NULL)
+    public function setEncryptionKey(XMLSecurityKey $zq = NULL)
     {
-        $this->encryptionKey = $z8;
+        $this->encryptionKey = $zq;
     }
     function getResponseParams()
     {
-        $Y1 = array();
-        $aZ = time();
-        $Y1["\111\163\163\x75\x65\x49\x6e\x73\x74\141\156\x74"] = str_replace("\53\60\60\72\x30\x30", "\x5a", gmdate("\x63", $aZ));
-        $Y1["\x4e\157\x74\x4f\x6e\x4f\x72\x41\146\x74\145\162"] = str_replace("\x2b\x30\x30\x3a\x30\x30", "\x5a", gmdate("\x63", $aZ + 300));
-        $Y1["\116\157\164\102\145\146\157\x72\145"] = str_replace("\53\60\x30\72\60\60", "\x5a", gmdate("\x63", $aZ - 30));
-        $Y1["\101\x75\164\150\156\111\156\163\164\141\x6e\x74"] = str_replace("\x2b\x30\60\x3a\x30\60", "\x5a", gmdate("\x63", $aZ - 120));
-        $Y1["\123\145\163\163\x69\157\156\116\x6f\164\117\156\117\x72\x41\146\164\145\162"] = str_replace("\53\60\60\x3a\x30\x30", "\x5a", gmdate("\x63", $aZ + 3600 * 8));
-        $Y1["\x49\x44"] = $this->generateUniqueID(40);
-        $Y1["\x41\x73\x73\x65\162\x74\111\104"] = $this->generateUniqueID(40);
-        $Y1["\x49\x73\163\x75\145\162"] = $this->issuer;
-        $Wl = '';
-        $Wl = variable_get("\x6d\151\156\151\x6f\162\x61\x6e\x67\145\137\163\x61\x6d\x6c\137\151\144\160\x5f\x70\x75\x62\154\137\143\145\x72\x74\x69\x66\x69\x63\x61\x74\x65");
-        if ($Wl != '') {
-            goto xm;
+        $S8 = array();
+        $lP = time();
+        $S8["\111\x73\163\165\145\x49\x6e\x73\164\x61\156\164"] = str_replace("\53\60\60\72\x30\60", "\132", gmdate("\143", $lP));
+        $S8["\x4e\x6f\x74\x4f\156\x4f\162\x41\x66\x74\145\x72"] = str_replace("\x2b\x30\x30\72\x30\x30", "\x5a", gmdate("\143", $lP + 300));
+        $S8["\x4e\157\x74\x42\145\x66\x6f\x72\145"] = str_replace("\53\x30\x30\72\x30\60", "\x5a", gmdate("\x63", $lP - 30));
+        $S8["\x41\x75\164\150\x6e\x49\x6e\163\x74\141\x6e\x74"] = str_replace("\53\x30\x30\x3a\x30\x30", "\132", gmdate("\143", $lP - 120));
+        $S8["\x53\145\163\x73\x69\157\x6e\116\157\x74\x4f\156\117\162\x41\x66\164\145\162"] = str_replace("\53\60\x30\x3a\x30\60", "\x5a", gmdate("\143", $lP + 3600 * 8));
+        $S8["\111\x44"] = $this->generateUniqueID(40);
+        $S8["\x41\163\163\145\x72\x74\111\104"] = $this->generateUniqueID(40);
+        $S8["\111\x73\163\165\145\x72"] = $this->issuer;
+        $Ej = '';
+        $Ej = variable_get("\155\x69\x6e\x69\157\162\x61\x6e\x67\145\137\163\x61\x6d\x6c\x5f\151\x64\x70\x5f\160\x75\x62\x6c\x5f\143\145\162\164\x69\146\x69\143\141\x74\x65");
+        if ($Ej != '') {
+            goto qi;
         }
-        $qJ = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "\x72\145\x73\x6f\x75\x72\143\x65\163" . DIRECTORY_SEPARATOR . "\x69\x64\160\55\x73\x69\x67\156\x69\x6e\x67\56\x63\162\x74";
-        goto YQ;
-        xm:
-        $qJ = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "\x72\145\x73\x6f\165\162\143\145\163" . DIRECTORY_SEPARATOR . "\103\165\163\x74\157\155\x5f\x50\x75\x62\x6c\151\143\137\x43\145\x72\164\151\x66\151\143\x61\x74\145\x2e\x63\162\164";
-        YQ:
-        $GY = new XMLSecurityKey(XMLSecurityKey::RSA_SHA256, array("\x74\171\160\145" => "\x70\x75\142\154\x69\143"));
-        $GY->loadKey($qJ, TRUE, TRUE);
-        $Y1["\170\x35\60\71"] = $GY->getX509Certificate();
-        $Y1["\101\x74\x74\162\x69\x62\x75\x74\x65\x73"] = $this->attributes;
-        return $Y1;
+        $X8 = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "\x72\145\x73\x6f\x75\162\x63\145\163" . DIRECTORY_SEPARATOR . "\151\144\x70\55\163\151\x67\156\151\156\x67\x2e\143\162\x74";
+        goto ur;
+        qi:
+        $X8 = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . "\162\x65\163\x6f\165\162\143\x65\x73" . DIRECTORY_SEPARATOR . "\x43\x75\163\x74\x6f\155\x5f\120\165\142\x6c\x69\x63\x5f\103\145\x72\x74\x69\146\151\x63\x61\164\x65\x2e\x63\x72\x74";
+        ur:
+        $Ab = new XMLSecurityKey(XMLSecurityKey::RSA_SHA256, array("\x74\171\x70\145" => "\x70\165\142\154\x69\143"));
+        $Ab->loadKey($X8, TRUE, TRUE);
+        $S8["\170\65\x30\71"] = $Ab->getX509Certificate();
+        $S8["\101\164\x74\x72\x69\x62\165\x74\x65\x73"] = $this->attributes;
+        return $S8;
     }
-    function createResponseElement($Y1)
+    function createResponseElement($S8)
     {
-        $Jx = $this->xml->createElementNS("\165\162\156\x3a\x6f\141\163\x69\163\x3a\156\x61\x6d\145\163\72\x74\143\x3a\123\101\x4d\114\72\x32\56\60\x3a\x70\x72\157\x74\157\143\157\154", "\x73\141\155\x6c\160\72\x52\x65\x73\160\157\156\x73\x65");
-        $Jx->setAttribute("\x49\104", $Y1["\x49\104"]);
-        $Jx->setAttribute("\x56\x65\x72\163\151\x6f\x6e", "\62\x2e\x30");
-        $Jx->setAttribute("\x49\163\163\x75\x65\111\x6e\163\164\x61\156\164", $Y1["\x49\x73\x73\165\145\x49\156\x73\x74\141\x6e\164"]);
-        $Jx->setAttribute("\104\x65\x73\x74\151\x6e\141\164\151\157\156", $this->acsUrl);
+        $fP = $this->xml->createElementNS("\x75\162\x6e\72\157\x61\x73\151\163\72\156\x61\155\x65\x73\72\x74\x63\x3a\x53\x41\x4d\x4c\72\62\x2e\60\72\160\x72\x6f\x74\x6f\143\x6f\x6c", "\x73\141\155\x6c\x70\72\122\x65\x73\x70\157\156\x73\145");
+        $fP->setAttribute("\111\104", $S8["\x49\104"]);
+        $fP->setAttribute("\126\145\x72\163\x69\157\156", "\62\56\60");
+        $fP->setAttribute("\x49\163\163\165\x65\111\156\163\x74\141\156\x74", $S8["\111\x73\x73\165\x65\111\x6e\x73\x74\141\156\x74"]);
+        $fP->setAttribute("\x44\145\163\164\151\156\x61\x74\x69\157\x6e", $this->acsUrl);
         if (!(isset($this->inResponseTo) && !is_null($this->inResponseTo))) {
-            goto YZ;
+            goto yp;
         }
-        $Jx->setAttribute("\x49\156\122\145\163\x70\x6f\x6e\x73\145\124\x6f", $this->inResponseTo);
-        YZ:
-        return $Jx;
+        $fP->setAttribute("\111\156\x52\x65\163\160\x6f\156\163\x65\x54\157", $this->inResponseTo);
+        yp:
+        return $fP;
     }
     function buildIssuer()
     {
-        $Qn = $this->xml->createElementNS("\165\x72\x6e\72\157\141\163\x69\163\72\156\x61\155\145\163\x3a\x74\143\x3a\x53\101\115\x4c\72\x32\x2e\x30\x3a\141\163\x73\x65\x72\164\151\157\156", "\163\x61\x6d\154\x3a\x49\x73\163\x75\x65\x72", $this->issuer);
-        return $Qn;
+        $SB = $this->xml->createElementNS("\165\162\156\x3a\x6f\x61\x73\151\163\x3a\156\141\x6d\145\x73\72\x74\143\72\x53\101\115\114\72\62\x2e\x30\72\141\163\163\145\x72\x74\x69\x6f\156", "\x73\x61\x6d\x6c\x3a\111\163\x73\x75\x65\x72", $this->issuer);
+        return $SB;
     }
     function buildStatus()
     {
-        $YW = $this->xml->createElementNS("\165\x72\x6e\72\157\x61\163\x69\x73\72\156\141\x6d\145\x73\72\164\143\72\123\101\115\x4c\x3a\x32\56\x30\72\160\x72\x6f\164\x6f\x63\x6f\x6c", "\x73\141\155\154\160\72\x53\164\x61\x74\x75\x73");
-        return $YW;
+        $QP = $this->xml->createElementNS("\x75\162\x6e\x3a\157\x61\x73\151\x73\x3a\156\x61\x6d\x65\163\x3a\x74\143\x3a\123\101\x4d\x4c\x3a\x32\x2e\60\72\x70\162\157\x74\x6f\x63\x6f\154", "\163\x61\155\154\x70\x3a\123\x74\x61\164\165\163");
+        return $QP;
     }
     function buildStatusCode()
     {
-        $vU = $this->xml->createElementNS("\x75\x72\x6e\72\157\x61\x73\151\163\x3a\x6e\x61\155\145\x73\72\164\x63\x3a\123\101\115\114\x3a\x32\56\x30\72\x70\162\157\164\x6f\x63\157\154", "\163\x61\x6d\x6c\x70\x3a\x53\164\141\164\x75\163\103\157\144\145");
-        $vU->setAttribute("\x56\141\x6c\165\x65", "\165\x72\x6e\x3a\x6f\x61\163\x69\x73\72\x6e\141\155\145\163\72\x74\143\72\123\101\x4d\114\x3a\x32\x2e\x30\72\163\164\x61\x74\x75\163\x3a\123\x75\x63\x63\x65\x73\x73");
-        return $vU;
+        $Ml = $this->xml->createElementNS("\x75\162\156\x3a\x6f\x61\x73\x69\x73\x3a\x6e\x61\x6d\145\x73\72\164\x63\72\x53\101\115\x4c\x3a\x32\56\60\72\160\x72\157\x74\157\x63\157\x6c", "\x73\141\155\154\x70\x3a\x53\x74\141\164\x75\x73\x43\157\144\x65");
+        $Ml->setAttribute("\126\x61\x6c\x75\145", "\x75\162\156\x3a\x6f\x61\x73\151\163\x3a\x6e\x61\x6d\145\x73\72\164\x63\x3a\123\101\115\114\x3a\62\56\x30\72\x73\164\x61\164\165\x73\72\123\x75\x63\143\x65\163\163");
+        return $Ml;
     }
-    function buildAssertion($Y1)
+    function buildAssertion($S8)
     {
-        $KE = $this->xml->createElementNS("\165\x72\x6e\x3a\x6f\141\163\151\x73\x3a\156\x61\155\x65\x73\72\164\x63\72\123\x41\x4d\x4c\x3a\62\x2e\x30\72\141\163\163\145\x72\x74\151\x6f\x6e", "\163\x61\155\x6c\72\101\163\163\145\x72\x74\151\x6f\156");
-        $KE->setAttribute("\111\104", $Y1["\101\x73\163\145\162\164\x49\104"]);
-        $KE->setAttribute("\111\163\163\x75\x65\111\156\163\x74\141\156\x74", $Y1["\111\x73\x73\x75\145\x49\156\163\164\x61\156\x74"]);
-        $KE->setAttribute("\x56\145\x72\163\151\157\x6e", "\x32\x2e\x30");
-        $Qn = $this->buildIssuer($Y1);
-        $KE->appendChild($Qn);
-        $dg = $this->buildSubject($Y1);
-        $this->subject = $dg;
-        $KE->appendChild($dg);
-        $k0 = $this->buildCondition($Y1);
-        $KE->appendChild($k0);
-        $vl = $this->buildAuthnStatement($Y1);
-        $KE->appendChild($vl);
-        $Fc = $Y1["\101\x74\x74\x72\151\x62\x75\164\x65\163"];
-        if (empty($Fc)) {
-            goto v7;
+        $NV = $this->xml->createElementNS("\x75\162\x6e\x3a\x6f\x61\x73\x69\163\x3a\156\141\155\x65\163\72\164\x63\72\123\x41\x4d\114\72\x32\56\x30\x3a\141\163\163\145\x72\164\x69\x6f\x6e", "\163\141\x6d\154\72\101\x73\163\145\162\x74\x69\157\x6e");
+        $NV->setAttribute("\x49\104", $S8["\101\163\x73\145\162\x74\111\x44"]);
+        $NV->setAttribute("\x49\163\163\165\x65\111\156\x73\164\141\x6e\x74", $S8["\x49\x73\163\165\145\x49\x6e\163\x74\141\x6e\164"]);
+        $NV->setAttribute("\x56\x65\162\163\x69\157\x6e", "\62\56\x30");
+        $SB = $this->buildIssuer($S8);
+        $NV->appendChild($SB);
+        $R1 = $this->buildSubject($S8);
+        $this->subject = $R1;
+        $NV->appendChild($R1);
+        $tZ = $this->buildCondition($S8);
+        $NV->appendChild($tZ);
+        $Hn = $this->buildAuthnStatement($S8);
+        $NV->appendChild($Hn);
+        $m0 = $S8["\101\x74\x74\x72\x69\x62\x75\x74\x65\163"];
+        if (empty($m0)) {
+            goto JG;
         }
-        $b0 = $this->buildAttrStatement($Y1);
-        $KE->appendChild($b0);
-        v7:
-        return $KE;
+        $O9 = $this->buildAttrStatement($S8);
+        $NV->appendChild($O9);
+        JG:
+        return $NV;
     }
-    function buildSubject($Y1)
+    function buildSubject($S8)
     {
-        $dg = $this->xml->createElement("\x73\x61\155\154\x3a\123\x75\142\152\x65\143\x74");
-        $bJ = $this->buildNameIdentifier();
-        $dg->appendChild($bJ);
-        $u4 = $this->buildSubjectConfirmation($Y1);
-        $dg->appendChild($u4);
-        return $dg;
+        $R1 = $this->xml->createElement("\163\141\155\154\x3a\123\165\x62\x6a\145\143\x74");
+        $iC = $this->buildNameIdentifier();
+        $R1->appendChild($iC);
+        $L7 = $this->buildSubjectConfirmation($S8);
+        $R1->appendChild($L7);
+        return $R1;
     }
     function buildNameIdentifier()
     {
-        if ($this->name_id_attr === "\x65\x6d\x61\x69\x6c\x41\x64\x64\x72\145\163\x73") {
-            goto df;
+        if ($this->name_id_attr === "\x65\155\x61\x69\x6c\x41\144\x64\162\x65\x73\x73") {
+            goto S9;
         }
-        $bJ = $this->xml->createElement("\163\x61\x6d\154\72\x4e\141\155\x65\x49\x44", $this->username);
-        goto Bo;
-        df:
-        $bJ = $this->xml->createElement("\163\141\155\x6c\72\116\x61\x6d\145\111\104", $this->email);
-        Bo:
+        $iC = $this->xml->createElement("\163\x61\x6d\x6c\x3a\116\141\x6d\x65\x49\104", $this->username);
+        goto Cq;
+        S9:
+        $iC = $this->xml->createElement("\163\141\x6d\x6c\72\116\x61\155\x65\111\x44", $this->email);
+        Cq:
         if (empty($this->name_id_attr_format)) {
-            goto wy;
+            goto Ls;
         }
-        $bJ->setAttribute("\x46\157\x72\155\141\x74", "\165\x72\156\x3a\157\x61\x73\151\x73\72\156\141\155\145\163\72\164\143\72\123\x41\x4d\114\x3a" . $this->name_id_attr_format);
-        goto wf;
-        wy:
-        $bJ->setAttribute("\106\157\x72\155\141\x74", "\165\x72\x6e\x3a\x6f\x61\163\x69\163\72\x6e\141\x6d\145\x73\72\x74\x63\x3a\x53\101\x4d\114\72\61\56\61\x3a\x6e\141\155\x65\x69\x64\55\146\x6f\x72\x6d\141\164\x3a\x65\155\x61\151\154\x41\144\x64\162\145\163\163");
-        wf:
-        $bJ->setAttribute("\123\120\x4e\x61\x6d\145\121\x75\x61\154\151\146\x69\x65\162", $this->audience);
-        return $bJ;
+        $iC->setAttribute("\106\x6f\x72\x6d\141\x74", "\x75\162\156\72\x6f\x61\x73\151\163\x3a\156\141\x6d\x65\163\72\164\x63\x3a\x53\x41\x4d\114\72" . $this->name_id_attr_format);
+        goto ac;
+        Ls:
+        $iC->setAttribute("\106\x6f\162\155\141\x74", "\x75\x72\x6e\72\157\x61\x73\151\163\72\x6e\x61\x6d\145\x73\72\164\x63\72\123\101\115\x4c\72\61\x2e\61\72\x6e\141\x6d\x65\x69\144\x2d\146\x6f\x72\x6d\141\164\72\145\x6d\x61\151\154\x41\144\x64\162\145\x73\163");
+        ac:
+        $iC->setAttribute("\123\120\116\x61\x6d\x65\x51\165\141\154\151\x66\x69\x65\162", $this->audience);
+        return $iC;
     }
-    function buildSubjectConfirmation($Y1)
+    function buildSubjectConfirmation($S8)
     {
-        $u4 = $this->xml->createElement("\163\x61\x6d\154\72\x53\165\142\x6a\145\143\164\x43\x6f\156\x66\x69\162\x6d\x61\164\151\157\x6e");
-        $u4->setAttribute("\115\145\x74\150\157\144", "\165\162\156\x3a\x6f\141\163\x69\163\x3a\156\x61\155\145\163\x3a\164\x63\x3a\x53\101\115\114\72\x32\56\60\72\x63\155\x3a\x62\x65\141\162\145\x72");
-        $NN = $this->getSubjectConfirmationData($Y1);
-        $u4->appendChild($NN);
-        return $u4;
+        $L7 = $this->xml->createElement("\x73\141\155\x6c\x3a\x53\165\x62\152\x65\143\x74\x43\157\x6e\x66\151\162\155\141\164\151\157\156");
+        $L7->setAttribute("\115\145\164\150\x6f\144", "\x75\162\156\72\x6f\141\163\x69\x73\72\x6e\x61\x6d\x65\163\x3a\x74\143\72\123\x41\x4d\x4c\72\62\56\x30\72\143\155\72\x62\145\141\162\145\x72");
+        $Jo = $this->getSubjectConfirmationData($S8);
+        $L7->appendChild($Jo);
+        return $L7;
     }
-    function getSubjectConfirmationData($Y1)
+    function getSubjectConfirmationData($S8)
     {
-        $NN = $this->xml->createElement("\163\141\155\154\x3a\x53\165\142\152\x65\x63\164\103\x6f\x6e\x66\x69\162\155\x61\164\x69\157\156\x44\x61\164\141");
-        $NN->setAttribute("\x4e\x6f\164\x4f\x6e\117\x72\x41\146\x74\145\162", $Y1["\116\157\x74\x4f\x6e\117\x72\101\x66\x74\145\x72"]);
-        $NN->setAttribute("\x52\145\x63\x69\160\151\145\156\164", $this->acsUrl);
+        $Jo = $this->xml->createElement("\163\141\x6d\154\72\123\165\x62\x6a\x65\x63\x74\x43\x6f\x6e\x66\151\162\155\x61\x74\x69\157\x6e\104\x61\x74\x61");
+        $Jo->setAttribute("\116\157\164\x4f\156\x4f\x72\x41\x66\x74\145\162", $S8["\x4e\x6f\164\x4f\x6e\x4f\162\101\x66\164\x65\162"]);
+        $Jo->setAttribute("\x52\x65\x63\151\x70\151\145\x6e\x74", $this->acsUrl);
         if (!(isset($this->inResponseTo) && !is_null($this->inResponseTo))) {
-            goto TR;
+            goto hV;
         }
-        $NN->setAttribute("\111\156\122\x65\x73\160\157\x6e\163\145\124\x6f", $this->inResponseTo);
-        TR:
-        return $NN;
+        $Jo->setAttribute("\x49\x6e\122\x65\163\160\157\156\x73\145\x54\x6f", $this->inResponseTo);
+        hV:
+        return $Jo;
     }
-    function buildCondition($Y1)
+    function buildCondition($S8)
     {
-        $k0 = $this->xml->createElement("\163\x61\155\154\x3a\103\x6f\x6e\x64\151\164\151\157\x6e\163");
-        $k0->setAttribute("\x4e\x6f\164\102\x65\146\157\x72\145", $Y1["\116\x6f\x74\102\x65\146\157\x72\x65"]);
-        $k0->setAttribute("\116\157\164\x4f\x6e\x4f\x72\x41\x66\164\x65\x72", $Y1["\116\x6f\164\x4f\x6e\x4f\162\101\x66\164\x65\162"]);
-        $PE = $this->buildAudienceRestriction();
-        $k0->appendChild($PE);
-        return $k0;
+        $tZ = $this->xml->createElement("\x73\141\155\154\72\x43\x6f\156\144\x69\x74\151\157\x6e\x73");
+        $tZ->setAttribute("\116\157\x74\102\145\x66\157\x72\145", $S8["\x4e\157\x74\x42\x65\146\157\x72\x65"]);
+        $tZ->setAttribute("\116\x6f\164\117\x6e\117\162\x41\146\x74\x65\162", $S8["\x4e\x6f\164\x4f\156\117\162\x41\x66\x74\x65\162"]);
+        $z3 = $this->buildAudienceRestriction();
+        $tZ->appendChild($z3);
+        return $tZ;
     }
     function buildAudienceRestriction()
     {
-        $PE = $this->xml->createElement("\163\141\155\154\72\x41\165\x64\151\x65\156\143\x65\x52\145\x73\x74\x72\x69\x63\x74\151\x6f\x6e");
-        $O9 = $this->xml->createElement("\163\x61\x6d\154\x3a\x41\165\x64\151\145\x6e\143\x65", $this->audience);
-        $PE->appendChild($O9);
-        return $PE;
+        $z3 = $this->xml->createElement("\x73\141\155\x6c\72\101\x75\x64\x69\x65\x6e\143\x65\122\145\x73\x74\162\x69\x63\x74\151\x6f\156");
+        $kw = $this->xml->createElement("\x73\141\155\x6c\72\101\165\144\151\x65\x6e\x63\x65", $this->audience);
+        $z3->appendChild($kw);
+        return $z3;
     }
-    function buildAuthnStatement($Y1)
+    function buildAuthnStatement($S8)
     {
-        $vl = $this->xml->createElement("\163\x61\x6d\154\x3a\x41\x75\x74\150\156\123\164\x61\164\x65\155\145\156\x74");
-        $vl->setAttribute("\x41\x75\x74\x68\156\111\156\163\164\141\156\x74", $Y1["\x41\x75\164\150\x6e\x49\156\x73\164\x61\156\x74"]);
-        $vl->setAttribute("\x53\x65\163\163\x69\157\x6e\111\156\x64\x65\170", "\x5f" . $this->generateUniqueID(30));
-        $vl->setAttribute("\123\x65\163\163\x69\x6f\156\x4e\x6f\x74\x4f\x6e\x4f\162\101\x66\164\145\162", $Y1["\x53\x65\x73\163\x69\157\x6e\x4e\x6f\164\x4f\156\117\162\101\x66\x74\x65\162"]);
-        $OU = $this->xml->createElement("\x73\x61\x6d\154\x3a\x41\165\164\150\156\103\157\156\x74\145\170\164");
-        $IK = $this->xml->createElement("\163\141\x6d\x6c\72\101\x75\164\x68\156\103\157\x6e\164\x65\170\164\x43\154\141\x73\x73\122\x65\x66", "\x75\162\x6e\72\157\x61\163\x69\163\72\x6e\141\155\x65\163\x3a\164\143\x3a\123\101\x4d\114\72\62\56\x30\x3a\141\x63\72\x63\154\x61\x73\163\x65\x73\x3a\x50\x61\x73\163\167\x6f\162\x64\120\x72\x6f\164\145\143\x74\x65\x64\x54\x72\x61\156\x73\160\157\162\x74");
-        $OU->appendChild($IK);
-        $vl->appendChild($OU);
-        return $vl;
+        $Hn = $this->xml->createElement("\x73\141\155\154\x3a\x41\165\x74\x68\156\x53\x74\x61\164\145\155\x65\156\x74");
+        $Hn->setAttribute("\101\165\164\150\156\111\x6e\x73\164\x61\156\x74", $S8["\101\165\164\150\x6e\111\x6e\163\x74\x61\156\x74"]);
+        $Hn->setAttribute("\x53\145\163\163\151\x6f\x6e\111\156\144\145\170", "\x5f" . $this->generateUniqueID(30));
+        $Hn->setAttribute("\123\x65\x73\x73\x69\157\156\116\x6f\164\x4f\x6e\x4f\x72\101\146\164\x65\x72", $S8["\123\x65\163\x73\151\157\x6e\116\157\164\117\x6e\117\162\x41\146\164\145\x72"]);
+        $b9 = $this->xml->createElement("\x73\141\155\154\x3a\x41\165\164\150\x6e\x43\x6f\x6e\164\145\x78\x74");
+        $rp = $this->xml->createElement("\x73\x61\155\x6c\72\x41\165\164\150\x6e\103\157\156\x74\x65\x78\164\103\154\141\163\163\122\x65\146", "\x75\162\x6e\72\x6f\x61\163\x69\x73\72\156\141\155\145\163\72\x74\143\x3a\123\x41\115\x4c\72\x32\x2e\x30\x3a\141\x63\72\143\x6c\141\x73\x73\x65\x73\72\120\141\x73\x73\x77\157\x72\x64\x50\x72\157\164\145\143\164\145\x64\x54\x72\x61\x6e\x73\160\x6f\162\164");
+        $b9->appendChild($rp);
+        $Hn->appendChild($b9);
+        return $Hn;
     }
-    function buildAttrStatement($Y1)
+    function buildAttrStatement($S8)
     {
-        $b0 = $this->xml->createElement("\x73\141\155\x6c\72\101\x74\x74\x72\x69\142\165\164\145\x53\164\141\x74\x65\x6d\145\x6e\x74");
-        $gb = $Y1["\101\164\164\162\x69\x62\x75\164\145\163"];
-        foreach ($gb as $Y7 => $OK) {
-            $ya = $this->buildAttribute($Y7, $OK);
-            $b0->appendChild($ya);
-            HJ:
+        $O9 = $this->xml->createElement("\x73\141\155\x6c\x3a\101\x74\164\x72\x69\142\165\164\x65\123\x74\x61\164\145\x6d\x65\x6e\164");
+        $Js = $S8["\101\x74\x74\x72\151\x62\x75\164\145\x73"];
+        foreach ($Js as $KC => $aw) {
+            $tv = $this->buildAttribute($KC, $aw);
+            $O9->appendChild($tv);
+            YZ:
         }
-        UC:
-        return $b0;
+        GP:
+        return $O9;
     }
-    function buildAttribute($Jp, $lY)
+    function buildAttribute($jA, $Jh)
     {
-        $ya = $this->xml->createElement("\x73\x61\155\154\x3a\101\164\x74\x72\x69\x62\x75\x74\x65");
-        $ya->setAttribute("\116\x61\x6d\x65", $Jp);
-        $ya->setAttribute("\x4e\141\155\145\x46\157\162\x6d\x61\164", "\165\162\x6e\72\157\141\x73\x69\x73\72\x6e\141\x6d\145\x73\72\x74\143\72\123\101\115\x4c\72\62\x2e\x30\72\x61\164\164\162\156\141\x6d\145\55\x66\157\162\x6d\x61\x74\72\x62\x61\163\151\143");
-        if (is_array($lY)) {
-            goto GC;
+        $tv = $this->xml->createElement("\x73\141\x6d\154\x3a\101\164\164\162\x69\142\165\164\145");
+        $tv->setAttribute("\x4e\141\x6d\145", $jA);
+        $tv->setAttribute("\116\x61\155\145\106\x6f\162\x6d\141\164", "\x75\162\x6e\x3a\x6f\x61\x73\x69\x73\72\156\141\x6d\145\x73\x3a\x74\143\x3a\123\x41\x4d\114\x3a\62\x2e\60\x3a\x61\x74\x74\x72\156\x61\155\145\55\146\157\162\x6d\141\x74\72\x62\x61\163\x69\x63");
+        if (is_array($Jh)) {
+            goto Uk;
         }
-        $Gb = $this->xml->createElement("\x73\141\155\x6c\x3a\x41\x74\164\162\x69\142\x75\164\x65\x56\141\154\165\145", $lY);
-        $ya->appendChild($Gb);
-        goto e1;
-        GC:
-        foreach ($lY as $p1 => $Vo) {
-            $Gb = $this->xml->createElement("\163\141\155\154\72\101\x74\x74\x72\x69\x62\165\x74\x65\x56\x61\x6c\165\145", $Vo);
-            $ya->appendChild($Gb);
-            sK:
+        $Vn = $this->xml->createElement("\163\141\155\154\72\x41\x74\164\162\x69\142\165\164\x65\x56\x61\x6c\165\x65", $Jh);
+        $tv->appendChild($Vn);
+        goto Vw;
+        Uk:
+        foreach ($Jh as $Nv => $kQ) {
+            $Vn = $this->xml->createElement("\x73\x61\x6d\x6c\72\101\x74\164\x72\x69\142\165\164\x65\126\x61\154\x75\145", $kQ);
+            $tv->appendChild($Vn);
+            gg:
         }
-        w7:
-        e1:
-        return $ya;
+        f0:
+        Vw:
+        return $tv;
     }
-    function buildEncryptedAssertion($KE)
+    function buildEncryptedAssertion($NV)
     {
-        $B8 = $this->xml->createElementNS("\x75\x72\x6e\x3a\157\141\x73\x69\163\72\x6e\x61\x6d\145\163\72\164\143\72\x53\101\x4d\x4c\x3a\x32\x2e\x30\72\141\163\163\x65\x72\164\151\x6f\x6e", "\163\141\x6d\x6c\x70\x3a\x45\156\x63\162\x79\x70\164\x65\144\x41\x73\x73\x65\x72\x74\151\x6f\x6e");
-        $BZ = $this->buildEncryptedData($KE);
-        $B8->appendChild($B8->ownerDocument->importNode($BZ, TRUE));
-        return $B8;
+        $K0 = $this->xml->createElementNS("\165\x72\x6e\72\157\141\x73\x69\163\72\x6e\141\155\145\x73\x3a\x74\x63\72\123\101\x4d\114\x3a\x32\x2e\x30\72\x61\x73\x73\145\x72\164\x69\x6f\x6e", "\163\141\155\154\160\72\x45\x6e\143\162\x79\x70\164\145\144\x41\x73\163\x65\162\x74\151\157\156");
+        $dl = $this->buildEncryptedData($NV);
+        $K0->appendChild($K0->ownerDocument->importNode($dl, TRUE));
+        return $K0;
     }
-    function buildEncryptedData($KE)
+    function buildEncryptedData($NV)
     {
-        $BZ = new XMLSecEnc();
-        $BZ->setNode($KE);
-        $BZ->type = "\150\164\164\x70\72\x2f\57\x77\167\x77\56\x77\63\56\157\x72\147\x2f\x32\60\x30\x31\x2f\x30\64\x2f\x78\x6d\154\x65\x6e\143\43\x45\154\145\155\x65\x6e\x74";
-        $Py = $this->mo_idp_cert_encrypt;
-        $Bc = new XMLSecurityKey(XMLSecurityKey::RSA_SHA256, array("\164\x79\x70\x65" => "\160\x75\x62\x6c\151\143"));
-        $Bc->loadKey($Py, FALSE, TRUE);
-        $this->setEncryptionKey($Bc);
-        $RX = new XMLSecurityKey(XMLSecurityKey::AES256_CBC);
-        $RX->generateSessionKey();
-        $BZ->encryptKey($this->encryptionKey, $RX);
-        $r4 = $BZ->encryptNode($RX, FALSE);
-        return $r4;
+        $dl = new XMLSecEnc();
+        $dl->setNode($NV);
+        $dl->type = "\150\x74\164\x70\72\57\x2f\167\x77\167\x2e\x77\63\x2e\157\x72\147\x2f\x32\60\60\61\57\60\64\57\x78\x6d\x6c\145\x6e\143\x23\105\154\145\155\x65\x6e\164";
+        $iw = $this->mo_idp_cert_encrypt;
+        $R_ = new XMLSecurityKey(XMLSecurityKey::RSA_SHA256, array("\164\x79\x70\x65" => "\160\165\x62\154\x69\143"));
+        $R_->loadKey($iw, FALSE, TRUE);
+        $this->setEncryptionKey($R_);
+        $Lp = new XMLSecurityKey(XMLSecurityKey::AES256_CBC);
+        $Lp->generateSessionKey();
+        $dl->encryptKey($this->encryptionKey, $Lp);
+        $dk = $dl->encryptNode($Lp, FALSE);
+        return $dk;
     }
-    function signNode($BW, $Dw, $dg, $Y1)
+    function signNode($nP, $B9, $R1, $S8)
     {
-        $GY = new XMLSecurityKey(XMLSecurityKey::RSA_SHA256, array("\164\x79\x70\145" => "\160\162\x69\166\x61\x74\x65"));
-        $GY->loadKey($BW, TRUE);
-        $e2 = new XMLSecurityDSig();
-        $e2->setCanonicalMethod(XMLSecurityDSig::EXC_C14N);
-        $e2->addReferenceList(array($Dw), XMLSecurityDSig::SHA256, array("\x68\164\x74\x70\72\x2f\x2f\167\x77\167\x2e\x77\x33\x2e\157\x72\147\57\62\60\60\x30\x2f\x30\71\x2f\x78\x6d\154\144\163\x69\147\43\145\x6e\x76\145\154\x6f\x70\x65\144\x2d\x73\x69\x67\156\141\x74\165\x72\145", XMLSecurityDSig::EXC_C14N), array("\x69\144\x5f\156\141\x6d\145" => "\x49\104", "\157\x76\145\162\x77\162\x69\164\x65" => false));
-        $e2->sign($GY);
-        $e2->add509Cert($Y1["\170\x35\60\x39"]);
-        $e2->insertSignature($Dw, $dg);
+        $Ab = new XMLSecurityKey(XMLSecurityKey::RSA_SHA256, array("\x74\x79\160\x65" => "\160\162\x69\x76\x61\164\x65"));
+        $Ab->loadKey($nP, TRUE);
+        $So = new XMLSecurityDSig();
+        $So->setCanonicalMethod(XMLSecurityDSig::EXC_C14N);
+        $So->addReferenceList(array($B9), XMLSecurityDSig::SHA256, array("\x68\164\x74\x70\72\x2f\x2f\x77\x77\x77\56\x77\x33\x2e\157\162\147\x2f\62\x30\x30\x30\57\x30\x39\x2f\x78\155\x6c\x64\x73\151\147\x23\145\156\166\145\x6c\x6f\x70\x65\144\55\x73\151\x67\156\141\164\165\x72\x65", XMLSecurityDSig::EXC_C14N), array("\151\x64\x5f\x6e\141\155\145" => "\x49\104", "\157\166\145\x72\x77\162\151\164\145" => false));
+        $So->sign($Ab);
+        $So->add509Cert($S8["\x78\x35\x30\x39"]);
+        $So->insertSignature($B9, $R1);
     }
-    function generateUniqueID($I7)
+    function generateUniqueID($CP)
     {
-        $Iu = "\x61\x62\x63\x64\145\146\x30\61\x32\x33\64\x35\x36\67\x38\71";
-        $RG = strlen($Iu);
-        $yd = '';
-        $no = 0;
-        tp:
-        if (!($no < $I7)) {
-            goto DF;
+        $Mn = "\141\x62\143\x64\145\146\60\61\x32\63\x34\x35\66\67\70\71";
+        $iA = strlen($Mn);
+        $r1 = '';
+        $RJ = 0;
+        V3:
+        if (!($RJ < $CP)) {
+            goto y2;
         }
-        $yd .= substr($Iu, rand(0, 15), 1);
-        ra:
-        $no++;
-        goto tp;
-        DF:
-        return "\141" . $yd;
+        $r1 .= substr($Mn, rand(0, 15), 1);
+        oF:
+        $RJ++;
+        goto V3;
+        y2:
+        return "\x61" . $r1;
     }
     function licenseCheck()
     {
         global $base_url;
-        $QL = db_select("\155\x69\156\x69\x6f\x72\x61\156\x67\x65\137\x73\x61\x6d\154\x5f\151\144\x70\x5f\x75\163\145\162", "\x55\163\x65\162\111\x6e")->fields("\125\163\145\x72\111\x6e")->condition("\155\x61\x69\x6c", $this->email, "\75")->execute()->fetchAssoc();
-        $pH = $QL["\x55\163\145\162\111\156"];
-        $E2 = new MiniorangeSAMLIdpCustomer(NULL, NULL, NULL, NULL);
-        $Sr = variable_get("\x6d\x69\x6e\151\117\162\141\156\147\145\x5f\163\x61\155\x6c\137\x69\144\x70\137\x75\163\x65\162\137\143\x6f\165\x6e\x74");
-        $Ob = variable_get("\155\x69\x6e\151\117\162\x61\156\x67\x65\x5f\x73\141\155\154\x5f\x69\x64\160\x5f\154\137\145\170\160");
-        $aX = variable_get("\164\145\x5f\x63\x6f\x75\156\164");
-        $yo = variable_get("\165\x65\137\143\x6f\165\156\164");
-        $UP = variable_get("\144\x63\150\145\x63\x6b");
-        $Xi = variable_get("\164\x6d\160\x5f\145\170\x70");
-        $QL = db_select("\x6d\151\156\x69\157\162\141\x6e\147\145\137\163\141\x6d\x6c\x5f\x69\x64\x70\137\x75\163\145\x72", "\125\x73\x65\x72\111\x6e")->fields("\125\163\x65\162\x49\x6e")->condition("\x55\x73\145\162\111\156", 1, "\75")->execute();
-        $wT = $QL->rowCount();
-        $a9 = date("\x59\x2d\x4d\x2d\144\40\x28\154\x29\x20\150\x3a\x69\72\163\141", $Ob);
-        if (!($Ob > time())) {
-            goto FR;
+        $ek = db_select("\155\151\156\151\x6f\162\141\156\147\x65\137\163\141\x6d\154\137\x69\x64\160\137\x75\x73\145\162", "\x55\163\145\x72\111\x6e")->fields("\125\163\x65\162\111\x6e")->condition("\x6d\x61\151\x6c", $this->email, "\x3d")->execute()->fetchAssoc();
+        $G3 = $ek["\x55\163\145\162\x49\x6e"];
+        $ZO = new MiniorangeSAMLIdpCustomer(NULL, NULL, NULL, NULL);
+        $UL = variable_get("\155\151\156\151\x4f\x72\141\x6e\x67\145\137\163\x61\155\154\137\x69\144\160\137\165\163\x65\162\x5f\x63\x6f\x75\156\164");
+        $cO = variable_get("\155\151\x6e\151\117\162\x61\156\147\x65\x5f\163\x61\x6d\x6c\x5f\151\x64\x70\137\154\x5f\x65\170\x70");
+        $dT = variable_get("\x74\x65\x5f\x63\157\165\x6e\164");
+        $PE = variable_get("\165\145\x5f\x63\157\x75\156\164");
+        $Dm = variable_get("\144\x63\150\x65\x63\153");
+        $i2 = variable_get("\x74\155\160\137\145\x78\160");
+        $ek = db_select("\x6d\151\156\151\x6f\x72\141\x6e\147\145\137\x73\x61\155\x6c\137\x69\x64\x70\x5f\x75\163\x65\x72", "\x55\163\x65\x72\111\156")->fields("\125\163\x65\162\111\x6e")->condition("\x55\163\x65\162\x49\156", 1, "\x3d")->execute();
+        $sk = $ek->rowCount();
+        $LC = date("\131\55\115\55\144\x20\x28\x6c\x29\x20\150\x3a\151\x3a\x73\141", $cO);
+        if (!($cO > time())) {
+            goto Rc;
         }
-        $eO = $Ob - time();
-        $TD = (int) ($eO / 60 / 60 / 24);
-        FR:
-        if (time() > $Ob + 2592000) {
-            goto OT;
+        $vP = $cO - time();
+        $Gi = (int) ($vP / 60 / 60 / 24);
+        Rc:
+        if (time() > $cO + 2592000) {
+            goto uv;
         }
-        if (time() >= $Ob - 2592000 && $aX == 0) {
-            goto n3;
+        if (time() >= $cO - 2592000 && $dT == 0) {
+            goto AU;
         }
-        if (time() >= $Ob - 1296000 && $aX == 1) {
-            goto JD;
+        if (time() >= $cO - 1296000 && $dT == 1) {
+            goto sE;
         }
-        if (time() >= $Ob - 432000 && $aX == 2) {
-            goto WJ;
+        if (time() >= $cO - 432000 && $dT == 2) {
+            goto md;
         }
-        if (time() >= $Ob && $aX == 3) {
-            goto Go;
+        if (time() >= $cO && $dT == 3) {
+            goto I2;
         }
-        if (!(time() >= $Ob + 1296000 && $aX == 4)) {
-            goto VE;
+        if (!(time() >= $cO + 1296000 && $dT == 4)) {
+            goto aP;
         }
-        if (Utilities::licensevalidity($Ob)) {
-            goto mT;
+        if (Utilities::licensevalidity($cO)) {
+            goto rL;
         }
-        $aX++;
-        variable_set("\x74\145\x5f\x63\x6f\165\156\164", $aX);
-        Utilities::dexdmid($a9);
-        goto vZ;
-        mT:
-        $aX = 0;
-        variable_set("\x74\x65\137\x63\x6f\x75\x6e\164", $aX);
-        vZ:
-        VE:
-        goto r5;
-        Go:
-        if (Utilities::licensevalidity($Ob)) {
-            goto ax;
+        $dT++;
+        variable_set("\x74\145\137\143\x6f\165\x6e\164", $dT);
+        Utilities::dexdmid($LC);
+        goto sG;
+        rL:
+        $dT = 0;
+        variable_set("\164\x65\137\x63\x6f\165\156\164", $dT);
+        sG:
+        aP:
+        goto YG;
+        I2:
+        if (Utilities::licensevalidity($cO)) {
+            goto bo;
         }
-        $aX++;
-        variable_set("\164\x65\137\x63\x6f\165\x6e\x74", $aX);
-        Utilities::limit($a9);
-        goto dX;
-        ax:
-        $aX = 0;
-        variable_set("\x74\145\x5f\143\x6f\165\x6e\164", $aX);
-        dX:
-        r5:
-        goto Ct;
-        WJ:
-        if (Utilities::licensevalidity($Ob)) {
-            goto J7;
+        $dT++;
+        variable_set("\164\x65\137\143\157\x75\x6e\164", $dT);
+        Utilities::limit($LC);
+        goto il;
+        bo:
+        $dT = 0;
+        variable_set("\164\145\137\143\x6f\165\x6e\x74", $dT);
+        il:
+        YG:
+        goto tU;
+        md:
+        if (Utilities::licensevalidity($cO)) {
+            goto p0;
         }
-        $aX++;
-        variable_set("\164\x65\137\143\x6f\165\x6e\x74", $aX);
-        Utilities::dayleft($TD);
-        goto dI;
-        J7:
-        $aX = 0;
-        variable_set("\x74\145\137\x63\x6f\165\156\x74", $aX);
-        dI:
-        Ct:
-        goto SZ;
-        JD:
-        if (Utilities::licensevalidity($Ob)) {
-            goto gU;
+        $dT++;
+        variable_set("\x74\x65\137\x63\x6f\165\x6e\x74", $dT);
+        Utilities::dayleft($Gi);
+        goto ba;
+        p0:
+        $dT = 0;
+        variable_set("\x74\x65\137\143\x6f\x75\x6e\x74", $dT);
+        ba:
+        tU:
+        goto zU;
+        sE:
+        if (Utilities::licensevalidity($cO)) {
+            goto Mb;
         }
-        $aX++;
-        variable_set("\x74\145\137\x63\x6f\x75\x6e\164", $aX);
-        Utilities::dayleft($TD);
-        goto Ip;
-        gU:
-        $aX = 0;
-        variable_set("\164\x65\x5f\x63\x6f\x75\156\x74", $aX);
-        Ip:
-        SZ:
-        goto WC;
-        n3:
-        $aX++;
-        variable_set("\x74\x65\137\143\157\165\156\164", $aX);
-        Utilities::dayleft($TD);
-        WC:
-        goto ko;
-        OT:
-        if (Utilities::licensevalidity($Ob)) {
-            goto an;
-        }
-        Utilities::dexdend($a9);
-        $AH = db_update("\x6d\x69\156\x69\157\162\x61\x6e\147\x65\x5f\163\x61\155\154\x5f\x69\144\x70\x5f\165\x73\145\162")->fields(array("\x55\x73\145\162\x49\x6e" => 0))->execute();
-        Utilities::freeLicenseKey();
-        header("\114\157\143\x61\164\x69\157\156\72\40" . $base_url);
-        goto DK;
-        an:
-        $aX = 0;
-        variable_set("\164\145\x5f\x63\157\165\156\x74", $aX);
-        DK:
-        ko:
-        if ($pH) {
-            goto VS;
-        }
-        if ($wT >= $Sr) {
-            goto Ur;
-        }
-        $QL = db_select("\x6d\x69\156\x69\157\162\141\x6e\147\145\137\163\141\155\x6c\137\x69\x64\160\137\x75\163\145\x72", "\x55\163\x65\162\111\x6e")->fields("\125\x73\x65\162\x49\156")->condition("\x6d\x61\x69\154", $this->email, "\75")->execute();
-        $uG = $QL->rowCount();
-        if ($uG > 0) {
-            goto Yl;
-        }
-        db_insert("\155\151\156\x69\157\x72\141\156\x67\145\x5f\163\x61\155\x6c\x5f\x69\144\x70\137\165\163\x65\x72")->fields(array("\x6d\141\x69\x6c" => $this->email, "\125\x73\145\x72\111\156" => 1))->execute();
-        goto gQ;
-        Yl:
-        $AH = db_update("\x6d\x69\x6e\151\x6f\162\x61\156\x67\145\137\163\x61\x6d\x6c\x5f\151\x64\160\137\165\x73\145\162")->fields(array("\x55\x73\x65\x72\111\156" => 1))->condition("\155\x61\151\154", $this->email, "\x3d")->execute();
-        gQ:
-        $wT = $wT + 1;
-        $CL = floor($Sr * 0.8);
-        $pB = floor($Sr * 0.9);
-        if ($wT == $CL) {
-            goto ad;
-        }
-        if ($wT == $pB) {
-            goto G6;
-        }
-        if ($Sr - $wT == 10) {
-            goto Xj;
-        }
-        if (!($wT == $Sr)) {
-            goto kM;
-        }
-        if (Utilities::checkupdate($Sr)) {
-            goto N2;
-        }
-        $UP = 0;
-        variable_set("\144\x63\x68\x65\143\x6b", $UP);
-        variable_set("\x74\x6d\x70\x5f\x65\170\160", time() + 2592000);
-        Utilities::limitreach($Sr, $wT);
-        goto sx;
-        N2:
-        return;
-        sx:
-        kM:
-        goto FD;
-        Xj:
-        if (Utilities::checkupdate($Sr)) {
-            goto Zg;
-        }
-        Utilities::tenuser($Sr, $wT);
-        goto Wp;
-        Zg:
-        return;
-        Wp:
-        FD:
-        goto gz;
+        $dT++;
+        variable_set("\164\x65\x5f\x63\157\165\x6e\x74", $dT);
+        Utilities::dayleft($Gi);
+        goto sj;
+        Mb:
+        $dT = 0;
+        variable_set("\x74\145\137\x63\157\165\156\164", $dT);
+        sj:
+        zU:
+        goto G6;
+        AU:
+        $dT++;
+        variable_set("\x74\x65\x5f\143\x6f\165\x6e\x74", $dT);
+        Utilities::dayleft($Gi);
         G6:
-        if (Utilities::checkupdate($Sr)) {
-            goto eo;
+        goto zI;
+        uv:
+        if (Utilities::licensevalidity($cO)) {
+            goto mo;
         }
-        Utilities::peruser(90, $Sr);
-        goto u0;
-        eo:
+        Utilities::dexdend($LC);
+        $zt = db_update("\x6d\151\156\x69\x6f\162\x61\x6e\x67\x65\137\x73\141\x6d\x6c\x5f\151\144\160\137\165\x73\145\162")->fields(array("\125\163\145\162\111\156" => 0))->execute();
+        Utilities::freeLicenseKey();
+        header("\x4c\x6f\x63\x61\164\x69\x6f\x6e\x3a\x20" . $base_url);
+        goto EU;
+        mo:
+        $dT = 0;
+        variable_set("\x74\145\x5f\x63\157\165\x6e\164", $dT);
+        EU:
+        zI:
+        if ($G3) {
+            goto LC;
+        }
+        if ($sk >= $UL) {
+            goto hH;
+        }
+        $ek = db_select("\x6d\151\x6e\151\x6f\x72\141\156\147\145\137\163\x61\155\x6c\x5f\x69\144\160\137\x75\x73\145\x72", "\125\x73\x65\162\x49\156")->fields("\x55\x73\145\x72\111\x6e")->condition("\155\x61\x69\154", $this->email, "\x3d")->execute();
+        $tS = $ek->rowCount();
+        if ($tS > 0) {
+            goto LA;
+        }
+        db_insert("\155\x69\156\151\x6f\x72\141\156\147\x65\137\x73\x61\155\154\x5f\x69\144\x70\137\x75\x73\145\x72")->fields(array("\x6d\141\151\154" => $this->email, "\125\163\x65\x72\111\x6e" => 1))->execute();
+        goto yA;
+        LA:
+        $zt = db_update("\155\x69\x6e\151\x6f\x72\141\x6e\x67\145\137\x73\141\x6d\154\137\x69\x64\x70\137\165\x73\x65\x72")->fields(array("\125\163\145\162\x49\x6e" => 1))->condition("\x6d\x61\x69\x6c", $this->email, "\x3d")->execute();
+        yA:
+        $sk = $sk + 1;
+        $ET = floor($UL * 0.8);
+        $aK = floor($UL * 0.9);
+        if ($sk == $ET) {
+            goto vO;
+        }
+        if ($sk == $aK) {
+            goto qR;
+        }
+        if ($UL - $sk == 10) {
+            goto R7;
+        }
+        if (!($sk == $UL)) {
+            goto pH;
+        }
+        if (Utilities::checkupdate($UL)) {
+            goto nQ;
+        }
+        $Dm = 0;
+        variable_set("\x64\x63\150\x65\x63\x6b", $Dm);
+        variable_set("\164\155\x70\137\145\170\160", time() + 2592000);
+        Utilities::limitreach($UL, $sk);
+        goto Pz;
+        nQ:
         return;
-        u0:
-        gz:
-        goto OK;
-        ad:
-        Utilities::peruser(80, $Sr);
-        OK:
-        goto ef;
-        Ur:
-        $xO = abs($Xi - time()) / 60 / 60 / 24;
-        if (!($xO != $UP)) {
-            goto Ng;
+        Pz:
+        pH:
+        goto vd;
+        R7:
+        if (Utilities::checkupdate($UL)) {
+            goto o5;
         }
-        if (!Utilities::checkupdate($Sr)) {
-            goto nM;
+        Utilities::tenuser($UL, $sk);
+        goto sh;
+        o5:
+        return;
+        sh:
+        vd:
+        goto FN;
+        qR:
+        if (Utilities::checkupdate($UL)) {
+            goto QJ;
         }
-        variable_set("\x75\x65\x5f\143\157\x75\156\x74", 0);
-        $QL = db_select("\155\151\x6e\x69\157\x72\141\156\x67\x65\137\163\141\155\154\x5f\x69\x64\160\137\165\163\x65\x72", "\x55\163\145\x72\111\x6e")->fields("\125\x73\x65\x72\111\156")->condition("\155\x61\151\x6c", $this->email, "\x3d")->execute();
-        $uG = $QL->rowCount();
-        if ($uG > 0) {
-            goto BI;
+        Utilities::peruser(90, $UL);
+        goto fe;
+        QJ:
+        return;
+        fe:
+        FN:
+        goto FC;
+        vO:
+        Utilities::peruser(80, $UL);
+        FC:
+        goto J8;
+        hH:
+        $lV = abs($i2 - time()) / 60 / 60 / 24;
+        if (!($lV != $Dm)) {
+            goto Cp;
         }
-        db_insert("\x6d\151\x6e\151\157\162\x61\x6e\147\145\x5f\x73\141\x6d\x6c\x5f\x69\x64\x70\137\x75\x73\145\162")->fields(array("\155\x61\151\x6c" => $this->email, "\x55\x73\x65\x72\x49\x6e" => 1))->execute();
-        goto Ic;
-        BI:
-        $AH = db_update("\x6d\151\x6e\x69\x6f\162\x61\x6e\147\145\x5f\163\141\155\x6c\137\x69\144\160\x5f\x75\163\x65\x72")->fields(array("\x55\163\145\162\x49\x6e" => 1))->condition("\155\x61\151\x6c", $this->email, "\75")->execute();
-        Ic:
-        nM:
-        variable_set("\144\143\150\x65\x63\153", $xO);
-        Ng:
-        if (time() < $Xi) {
-            goto Xe;
+        if (!Utilities::checkupdate($UL)) {
+            goto hI;
         }
-        if (!($yo == 1)) {
-            goto AN;
+        variable_set("\165\145\137\143\157\165\156\164", 0);
+        $ek = db_select("\155\x69\156\x69\157\x72\141\x6e\147\145\137\x73\x61\x6d\x6c\137\x69\x64\x70\137\x75\163\x65\162", "\x55\163\145\x72\x49\x6e")->fields("\x55\163\x65\x72\x49\156")->condition("\x6d\141\151\x6c", $this->email, "\x3d")->execute();
+        $tS = $ek->rowCount();
+        if ($tS > 0) {
+            goto Ra;
         }
-        Utilities::limitend($Sr);
-        $yo++;
-        variable_set("\x75\145\137\143\x6f\x75\156\x74", $yo);
-        AN:
-        echo "\x53\x53\x4f\x20\x46\x61\x69\x6c\145\144\56\40\115\141\170\x69\x6d\x75\155\40\154\x69\155\x69\164\x20\162\x65\x61\143\150\x65\x64\56\40\x50\154\x65\141\x73\145\x20\x63\157\x6e\x74\141\143\x74\x20\x79\157\165\162\40\101\x64\x6d\151\156\x69\x73\x74\162\x61\x74\157\162\x20\x66\157\162\x20\155\x6f\162\x65\40\144\x65\164\x61\151\154\x73\x2e";
+        db_insert("\155\151\156\151\157\x72\141\156\147\x65\x5f\x73\x61\155\154\x5f\x69\144\160\137\165\163\145\162")->fields(array("\x6d\141\x69\154" => $this->email, "\x55\x73\145\162\111\x6e" => 1))->execute();
+        goto EF;
+        Ra:
+        $zt = db_update("\x6d\151\x6e\x69\x6f\162\141\x6e\x67\145\137\x73\x61\x6d\154\x5f\151\144\x70\137\x75\163\145\162")->fields(array("\x55\x73\x65\x72\x49\156" => 1))->condition("\155\x61\151\154", $this->email, "\75")->execute();
+        EF:
+        hI:
+        variable_set("\144\143\150\145\x63\x6b", $lV);
+        Cp:
+        if (time() < $i2) {
+            goto tN;
+        }
+        if (!($PE == 1)) {
+            goto LE;
+        }
+        Utilities::limitend($UL);
+        $PE++;
+        variable_set("\x75\x65\137\143\157\x75\156\164", $PE);
+        LE:
+        echo "\x53\123\117\40\x46\141\151\154\x65\144\56\40\115\x61\x78\x69\x6d\165\155\40\x6c\x69\155\151\x74\x20\162\x65\x61\143\150\145\x64\56\40\x50\x6c\x65\141\x73\x65\x20\x63\x6f\x6e\x74\141\x63\164\40\x79\x6f\x75\162\40\101\x64\x6d\x69\x6e\151\x73\x74\x72\141\x74\x6f\162\x20\x66\157\x72\40\155\x6f\162\145\x20\x64\145\x74\141\151\x6c\x73\x2e";
         die;
-        goto hg;
-        Xe:
-        if (!(time() > $Xi - 1296000 && $yo == 0)) {
-            goto Ht;
+        goto so;
+        tN:
+        if (!(time() > $i2 - 1296000 && $PE == 0)) {
+            goto I5;
         }
-        Utilities::limitmid($Sr);
-        $yo++;
-        variable_set("\x75\x65\x5f\x63\x6f\165\x6e\164", $yo);
-        Ht:
+        Utilities::limitmid($UL);
+        $PE++;
+        variable_set("\x75\145\x5f\x63\x6f\165\x6e\164", $PE);
+        I5:
         return;
-        hg:
-        ef:
-        goto nT;
-        VS:
+        so:
+        J8:
+        goto kq;
+        LC:
         return;
-        nT:
+        kq:
     }
 }
