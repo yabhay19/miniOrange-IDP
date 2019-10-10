@@ -1,51 +1,51 @@
 <?php
 
 
-include "\101\x73\x73\145\x72\164\151\x6f\156\x2e\160\x68\160";
+include "\x41\163\x73\x65\162\x74\151\x6f\x6e\56\160\150\160";
 class SAML2_Response
 {
     private $assertions;
     private $destination;
-    public function __construct(DOMElement $Kz = NULL)
+    public function __construct(DOMElement $vM = NULL)
     {
         $this->assertions = array();
-        if (!($Kz === NULL)) {
-            goto YA;
+        if (!($vM === NULL)) {
+            goto oU;
         }
         return;
-        YA:
-        if (!$Kz->hasAttribute("\x44\x65\163\x74\151\x6e\x61\164\x69\x6f\156")) {
-            goto V0;
+        oU:
+        if (!$vM->hasAttribute("\x44\x65\163\x74\x69\x6e\141\164\x69\x6f\156")) {
+            goto la;
         }
-        $this->destination = $Kz->getAttribute("\x44\x65\x73\164\x69\156\141\164\x69\157\156");
-        V0:
-        $Dw = $Kz->firstChild;
-        Xv:
-        if (!($Dw !== NULL)) {
-            goto EE;
+        $this->destination = $vM->getAttribute("\x44\x65\x73\164\x69\x6e\x61\x74\x69\157\156");
+        la:
+        $B9 = $vM->firstChild;
+        ja:
+        if (!($B9 !== NULL)) {
+            goto ZT;
         }
-        if (!($Dw->namespaceURI !== "\165\x72\x6e\x3a\157\141\163\151\x73\72\156\x61\155\x65\163\x3a\x74\143\x3a\123\x41\x4d\114\72\x32\56\60\72\x61\x73\x73\x65\x72\164\151\157\156")) {
-            goto Wk;
+        if (!($B9->namespaceURI !== "\x75\x72\x6e\x3a\157\141\163\x69\163\x3a\156\141\x6d\x65\x73\x3a\x74\x63\72\x53\101\115\114\72\x32\x2e\60\72\x61\x73\x73\145\162\164\151\157\x6e")) {
+            goto R0;
         }
-        goto Mt;
-        Wk:
-        if (!($Dw->localName === "\x41\163\163\x65\162\164\151\157\156" || $Dw->localName === "\x45\156\143\x72\171\x70\x74\145\144\101\x73\x73\145\162\164\151\x6f\x6e")) {
-            goto pu;
+        goto E8;
+        R0:
+        if (!($B9->localName === "\101\x73\163\145\162\x74\151\157\156" || $B9->localName === "\105\156\x63\x72\171\160\164\x65\144\101\163\163\145\162\164\x69\x6f\156")) {
+            goto PD;
         }
-        $this->assertions[] = new SAML2_Assertion($Dw);
-        pu:
-        Mt:
-        $Dw = $Dw->nextSibling;
-        goto Xv;
-        EE:
+        $this->assertions[] = new SAML2_Assertion($B9);
+        PD:
+        E8:
+        $B9 = $B9->nextSibling;
+        goto ja;
+        ZT:
     }
     public function getAssertions()
     {
         return $this->assertions;
     }
-    public function setAssertions(array $yD)
+    public function setAssertions(array $Sf)
     {
-        $this->assertions = $yD;
+        $this->assertions = $Sf;
     }
     public function getDestination()
     {
@@ -53,12 +53,12 @@ class SAML2_Response
     }
     public function toUnsignedXML()
     {
-        $Si = parent::toUnsignedXML();
-        foreach ($this->assertions as $KE) {
-            $KE->toXML($Si);
-            DS:
+        $Sw = parent::toUnsignedXML();
+        foreach ($this->assertions as $NV) {
+            $NV->toXML($Sw);
+            oR1:
         }
-        Or1:
-        return $Si;
+        d4:
+        return $Sw;
     }
 }
