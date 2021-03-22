@@ -22,10 +22,10 @@ class AuthnRequest
         $this->forceAuthn = false;
         $this->isPassive = false;
         if (!($vM === null)) {
-            goto fn;
+            goto fn1;
         }
         return;
-        fn:
+        fn1:
         $this->forceAuthn = Utilities::parseBoolean($vM, "\x46\x6f\x72\143\145\101\x75\x74\x68\x6e", false);
         $this->isPassive = Utilities::parseBoolean($vM, "\111\x73\120\141\x73\x73\151\166\145", false);
         if (!$vM->hasAttribute("\101\x73\x73\x65\162\x74\x69\x6f\x6e\x43\157\x6e\163\x75\155\x65\162\123\145\162\x76\151\143\145\125\x52\114")) {

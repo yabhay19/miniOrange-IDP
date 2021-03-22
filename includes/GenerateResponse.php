@@ -507,7 +507,7 @@ class GenerateResponse
         return;
         sh:
         vd:
-        goto FN;
+        goto FN1;
         qR:
         if (Utilities::checkupdate($UL)) {
             goto QJ;
@@ -517,7 +517,7 @@ class GenerateResponse
         QJ:
         return;
         fe:
-        FN:
+        FN1:
         goto FC;
         vO:
         Utilities::peruser(80, $UL);
